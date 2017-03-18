@@ -7,13 +7,13 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.MenuController">
    <children>
-      <Button fx:id="btnCategorical" layoutX="245.0" layoutY="235.0" mnemonicParsing="false" onAction="#categoricalClick" prefHeight="30.0" prefWidth="110.0" text="Categorical" />
+      <Button fx:id="btnCategorical" layoutX="245.0" layoutY="235.0" mnemonicParsing="false" onAction="#buttonClick" prefHeight="30.0" prefWidth="110.0" text="Categorical" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="115.0" layoutY="87.0" prefHeight="148.0" prefWidth="371.0" text="Summarizing and Presenting Data" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Trebuchet MS Bold" size="30.0" />
          </font>
       </Label>
-      <Button layoutX="245.0" layoutY="282.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0" text="Numerical" />
-      <Button layoutX="245.0" layoutY="328.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0" text="Quit" />
+      <Button fx:id="btnNumerical" layoutX="245.0" layoutY="282.0" mnemonicParsing="false" onAction="#buttonClick" prefHeight="30.0" prefWidth="110.0" text="Numerical" />
+      <Button fx:id="btnQuit" layoutX="245.0" layoutY="328.0" mnemonicParsing="false" onAction="#buttonClick" prefHeight="30.0" prefWidth="110.0" text="Quit" />
    </children>
 </AnchorPane>

@@ -2,6 +2,8 @@ package main;
 
 import java.io.IOException;
 
+import javax.xml.transform.Source;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,22 +23,24 @@ public class MenuController {
 	private Button btnQuit;
 
 	@FXML
-	public void categoricalClick(ActionEvent event) throws IOException {
+	private void buttonClick(ActionEvent event) throws IOException {
+		Button src = (Button) event.getSource();
+		
+		if(src == btnCategorical) {
+			MainFields.setType("Categorical");
+		} else if(src == btnNumerical) {
+			MainFields.setType("Numerical");
+		} else {
+			System.exit(0);
+		}
+		
 		Stage stage = new Stage();
 		Parent root = FXMLLoader.load(getClass().getResource("InputTitle.fxml"));
 		
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.initModality(Modality.APPLICATION_MODAL);
-		stage.initOwner(btnCategorical.getScene().getWindow());
+		stage.initOwner(src.getScene().getWindow());
 		stage.showAndWait();
-	}
-	
-	public void numericalClick(ActionEvent event) {
-		
-	}
-	
-	public void quitClick(ActionEvent event) {
-		
 	}
 }
