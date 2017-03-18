@@ -15,7 +15,7 @@ public class Main extends Application {
 			Parent root = FXMLLoader.load(getClass().getResource("/main/Menu.fxml"));
 			Scene scene = new Scene(root);
 			
-			primaryStage.setTitle("Summarizing and Presenting Data");
+			primaryStage.setTitle("Summarizing and Presenting Data");   // title
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.show();
