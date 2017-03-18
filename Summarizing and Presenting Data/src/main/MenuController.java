@@ -15,24 +15,24 @@ import javafx.stage.Stage;
 
 public class MenuController {
 	
-	@FXML
-	private Button btnCategorical;
-	@FXML
-	private Button btnNumerical;
-	@FXML
-	private Button btnQuit;
+	@FXML private Button btnCategorical;
+	@FXML private Button btnNumerical;
+	@FXML private Button btnQuit;
 
 	@FXML
 	private void buttonClick(ActionEvent event) throws IOException {
 		Button src = (Button) event.getSource();
+		String type;
 		
 		if(src == btnCategorical) {
-			MainFields.setType("Categorical");
+			type = "Categorical";
 		} else if(src == btnNumerical) {
-			MainFields.setType("Numerical");
+			type = "Numerical";
 		} else {
 			System.exit(0);
 		}
+		
+		// TODO
 		
 		Stage stage = new Stage();
 		Parent root = FXMLLoader.load(getClass().getResource("InputTitle.fxml"));

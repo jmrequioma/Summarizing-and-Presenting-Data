@@ -4,24 +4,36 @@ import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class InputTitleController {
 	
-	@FXML
-	private TextField txtFieldInputTitle;
-	@FXML
-	private Button btnConfirm;
-	@FXML
-	private Button btnBack;
+	@FXML TextField txtFInputTitle;
+	@FXML Button btnBack;
 	
 	@FXML
-	private void buttonClick(ActionEvent event) throws IOException {
-		Button src = (Button) event.getSource();
-		System.out.println("hello");
-		if (src == btnConfirm) {
-			System.out.println("inside");
-		}
+	private void confirm(ActionEvent event) throws IOException {
+		Stage stage = (Stage) btnBack.getScene().getWindow();
+		stage.close();
+		
+		String title = txtFInputTitle.getText();
+		// TODO
+		
+		Stage ownerStage = (Stage) stage.getOwner();
+		Parent root = FXMLLoader.load(getClass().getResource("DataPresentation.fxml"));
+		Scene scene = new Scene(root);
+		ownerStage.setScene(scene);
+		ownerStage.show();
+	}
+	
+	@FXML
+	private void back(ActionEvent event) {
+		Stage stage = (Stage) btnBack.getScene().getWindow();
+		stage.close();
 	}
 }
