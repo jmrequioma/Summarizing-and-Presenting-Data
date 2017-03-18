@@ -13,7 +13,8 @@ public class Main extends Application {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/main/Menu.fxml"));
 			Scene scene = new Scene(root);
-		
+			
+			primaryStage.setTitle("Summarizing and Presenting Data");   // title
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.show();
