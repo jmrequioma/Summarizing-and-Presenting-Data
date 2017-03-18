@@ -22,7 +22,7 @@ public class InputTitleController {
 		stage.close();
 		
 		String title = txtFInputTitle.getText();
-		// TODO
+		MainFields.setTitle(title);
 		
 		Stage ownerStage = (Stage) stage.getOwner();
 		Parent root = FXMLLoader.load(getClass().getResource("DataPresentation.fxml"));

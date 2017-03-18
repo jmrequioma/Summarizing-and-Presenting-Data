@@ -2,8 +2,6 @@ package main;
 
 import java.io.IOException;
 
-import javax.xml.transform.Source;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,17 +20,14 @@ public class MenuController {
 	@FXML
 	private void buttonClick(ActionEvent event) throws IOException {
 		Button src = (Button) event.getSource();
-		String type;
 		
 		if(src == btnCategorical) {
-			type = "Categorical";
+			MainFields.setType("Categorical");
 		} else if(src == btnNumerical) {
-			type = "Numerical";
+			MainFields.setType("Numerical");
 		} else {
 			System.exit(0);
 		}
-		
-		// TODO
 		
 		Stage stage = new Stage();
 		Parent root = FXMLLoader.load(getClass().getResource("InputTitle.fxml"));
