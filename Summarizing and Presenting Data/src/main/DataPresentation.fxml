@@ -12,7 +12,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="25.0" layoutY="80.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Sample Data" />
+      <Button fx:id="btnSampleData" layoutX="25.0" layoutY="80.0" mnemonicParsing="false" onAction="#sampleDataClick" prefHeight="25.0" prefWidth="175.0" text="Sample Data" />
       <Button layoutX="213.0" layoutY="80.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Generate Table" />
       <Button layoutX="401.0" layoutY="80.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Generate Graph" />
       <AnchorPane layoutX="25.0" layoutY="117.0" prefHeight="327.0" prefWidth="551.0" style="-fx-background-color: White;" />
