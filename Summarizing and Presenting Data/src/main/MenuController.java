@@ -38,6 +38,7 @@ public class MenuController {
 		Parent root = FXMLLoader.load(getClass().getResource("InputTitle.fxml"));
 		
 		Scene scene = new Scene(root);
+		stage.setTitle("Input Title");
 		stage.setScene(scene);
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.initOwner(src.getScene().getWindow());
