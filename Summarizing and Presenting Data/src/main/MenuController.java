@@ -33,6 +33,7 @@ public class MenuController {
 		Parent root = FXMLLoader.load(getClass().getResource("InputTitle.fxml"));
 		
 		Scene scene = new Scene(root);
+		scene.getStylesheets().add("/main/bloodcrimson.css");
 		stage.setTitle("Input Title");
 		stage.setScene(scene);
 		stage.initModality(Modality.APPLICATION_MODAL);

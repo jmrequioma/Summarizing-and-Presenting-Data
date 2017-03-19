@@ -27,6 +27,7 @@ public class InputTitleController {
 		Stage ownerStage = (Stage) stage.getOwner();
 		Parent root = FXMLLoader.load(getClass().getResource("DataPresentation.fxml"));
 		Scene scene = new Scene(root);
+		scene.getStylesheets().add("/main/bloodcrimson.css");
 		ownerStage.setScene(scene);
 		ownerStage.show();
 	}

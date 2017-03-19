@@ -33,6 +33,7 @@ public class DataPresentationController implements Initializable {
 		Parent root = FXMLLoader.load(getClass().getResource("SampleData.fxml"));
 		
 		Scene scene = new Scene(root);
+		scene.getStylesheets().add("/main/bloodcrimson.css");
 		stage.setTitle("Sample Data");
 		stage.setScene(scene);
 		stage.initModality(Modality.APPLICATION_MODAL);

@@ -13,6 +13,7 @@ public class Main extends Application {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/main/Menu.fxml"));
 			Scene scene = new Scene(root);
+			scene.getStylesheets().add("/main/bloodcrimson.css");
 			
 			primaryStage.setTitle("Summarizing and Presenting Data");   // title
 			primaryStage.setScene(scene);
