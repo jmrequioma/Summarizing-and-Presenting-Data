@@ -33,6 +33,7 @@ public class DataPresentationController implements Initializable {
 		Parent root = FXMLLoader.load(getClass().getResource("SampleData.fxml"));
 		
 		Scene scene = new Scene(root);
+		stage.setTitle("Sample Data");
 		stage.setScene(scene);
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.initOwner(btnSampleData.getScene().getWindow());
