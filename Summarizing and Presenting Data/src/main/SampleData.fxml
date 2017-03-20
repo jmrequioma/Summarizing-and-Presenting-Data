@@ -10,8 +10,8 @@
       <TextField fx:id="txtFSampleData" layoutX="12.0" layoutY="33.0" prefHeight="25.0" prefWidth="426.0" />
       <Button fx:id="btnAddItem" layoutX="453.0" layoutY="33.0" mnemonicParsing="false" onAction="#addItemClick" prefHeight="25.0" prefWidth="133.0" text="Add Item" />
       <TextArea fx:id="txtASampleData" editable="false" layoutX="12.0" layoutY="67.0" prefHeight="388.0" prefWidth="576.0" wrapText="true" />
-      <Button fx:id ="btnDeleteSampleData" layoutX="13.0" layoutY="461.0" mnemonicParsing="false" onAction="#deleteSampleDataClick" prefHeight="25.0" prefWidth="184.0" text="Delete" />
+      <Button fx:id="btnDeleteSampleData" layoutX="13.0" layoutY="461.0" mnemonicParsing="false" onAction="#deleteSampleDataClick" prefHeight="25.0" prefWidth="184.0" text="Delete" />
       <Button fx:id="btnClearSampleData" layoutX="208.0" layoutY="461.0" mnemonicParsing="false" onAction="#clearSampleDataClick" prefHeight="25.0" prefWidth="184.0" text="Clear" />
-      <Button fx:id="btnConfirmSampleData" layoutX="404.0" layoutY="461.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="184.0" text="Confirm" />
+      <Button fx:id="btnConfirmSampleData" layoutX="404.0" layoutY="461.0" mnemonicParsing="false" onAction="#confirmSampleDataClick" prefHeight="25.0" prefWidth="184.0" text="Confirm" />
    </children>
 </AnchorPane>

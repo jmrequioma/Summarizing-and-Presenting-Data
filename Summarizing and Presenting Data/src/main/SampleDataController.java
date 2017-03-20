@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class SampleDataController {
 	
@@ -49,5 +50,13 @@ public class SampleDataController {
 		txtASampleData.clear();
 		sampleDatas.clear();
 		ctr = 0;
+	}
+	
+	@FXML
+	private void confirmSampleDataClick(ActionEvent event) {
+		Stage stage = (Stage) btnConfirmSampleData.getScene().getWindow();
+		stage.close();
+		
+		MainFields.setSampleData(sampleDatas);
 	}
 }

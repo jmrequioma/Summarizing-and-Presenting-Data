@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -21,6 +22,8 @@ public class DataPresentationController implements Initializable {
 	@FXML Button btnGenerateTable;
 	@FXML Button btnGenerateGraph;
 	@FXML Label lblTitle;
+	@FXML Pane paneTable;
+	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -39,5 +42,12 @@ public class DataPresentationController implements Initializable {
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.initOwner(btnSampleData.getScene().getWindow());
 		stage.showAndWait();
+	}
+	
+	@FXML
+	public void generateTableClick(ActionEvent event) throws IOException {
+		Pane paneCategoricalTable = FXMLLoader.load(getClass().
+				getResource("/main/CategoricalTable.fxml"));
+		paneTable.getChildren().add(paneCategoricalTable);
 	}
 }
