@@ -69,17 +69,8 @@ public class DataPresentationController implements Initializable {
 		Stage stage = new Stage();
 		
 		Parent root = FXMLLoader.load(getClass().getResource("PieChart.fxml"));
-		for (int i = 0; i < MainFields.getSampleData().size(); i++) {
-			details.add(new PieChart.Data(MainFields.getSampleData().get(i), 1));
-		}
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add("/main/bloodcrimson.css");
-		pChart = new PieChart();
-		pChart.setData(details);
-		pChart.setTitle(MainFields.getTitle());
-		pChart.setLegendSide(Side.BOTTOM);
-		pChart.setLabelsVisible(true);
-		//scene.getRoot().getChildrenUnmodifiable().add(pChart);
 		stage.setTitle("Pie Chart");
 		stage.setScene(scene);
 		stage.initModality(Modality.APPLICATION_MODAL);
