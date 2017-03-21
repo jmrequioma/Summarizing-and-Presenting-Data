@@ -13,12 +13,12 @@ import javafx.stage.Stage;
 
 public class SampleDataController {
 	
-	@FXML TextField txtFSampleData;
-	@FXML TextArea txtASampleData;
-	@FXML Button btnAddItem;
-	@FXML Button btnDeleteSampleData;
-	@FXML Button btnClearSampleData;
-	@FXML Button btnConfirmSampleData;
+	@FXML private TextField txtFSampleData;
+	@FXML private TextArea txtASampleData;
+	@FXML private Button btnAddItem;
+	@FXML private Button btnDeleteSampleData;
+	@FXML private Button btnClearSampleData;
+	@FXML private Button btnConfirmSampleData;
 	private ArrayList<String> sampleDatasString = new ArrayList<String>();   // this container is supposed to be dynamic, i was thinking of using the Data class like before
 	private ArrayList<Float> sampleDatasFloat = new ArrayList<Float>();
 	private int ctr;

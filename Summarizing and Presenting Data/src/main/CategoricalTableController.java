@@ -14,9 +14,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class CategoricalTableController implements Initializable {
 
 	
-	@FXML TableView<CategoricalData> categoricalData;
-	@FXML TableColumn<CategoricalData, String> valueLabels;
-	@FXML TableColumn<CategoricalData, Float> percentage;
+	@FXML private TableView<CategoricalData> categoricalData;
+	@FXML private TableColumn<CategoricalData, String> valueLabels;
+	@FXML private TableColumn<CategoricalData, Float> percentage;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

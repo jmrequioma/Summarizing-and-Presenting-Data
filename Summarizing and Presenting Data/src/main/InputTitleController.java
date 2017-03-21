@@ -13,8 +13,8 @@ import javafx.stage.Stage;
 
 public class InputTitleController {
 	
-	@FXML TextField txtFInputTitle;
-	@FXML Button btnBack;
+	@FXML private TextField txtFInputTitle;
+	@FXML private Button btnBack;
 	
 	@FXML
 	private void confirm(ActionEvent event) throws IOException {
