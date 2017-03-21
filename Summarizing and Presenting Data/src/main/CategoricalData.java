@@ -2,8 +2,8 @@ package main;
 
 public class CategoricalData {
 	
-	String valueLabels;
-	float percentage;
+	private String valueLabels;
+	private float percentage;
 	
 	public CategoricalData(String valueLabels, float percentage) {
 		this.valueLabels = valueLabels;

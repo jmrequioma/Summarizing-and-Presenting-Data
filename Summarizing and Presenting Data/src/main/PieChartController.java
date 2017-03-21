@@ -15,8 +15,8 @@ import javafx.stage.Stage;
 
 public class PieChartController implements Initializable{
 	private ObservableList<PieChart.Data> details = FXCollections.observableArrayList();
-	@FXML PieChart pieChart;
-	@FXML Button btnConfirmPieChart;
+	@FXML private PieChart pieChart;
+	@FXML private Button btnConfirmPieChart;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
