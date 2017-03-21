@@ -14,7 +14,7 @@
       </Label>
       <Button fx:id="btnSampleData" layoutX="25.0" layoutY="80.0" mnemonicParsing="false" onAction="#sampleDataClick" prefHeight="25.0" prefWidth="175.0" text="Sample Data" />
       <Button fx:id="btnGenerateTable" layoutX="213.0" layoutY="80.0" mnemonicParsing="false" onAction="#generateTableClick" prefHeight="25.0" prefWidth="175.0" text="Generate Table" />
-      <Button layoutX="401.0" layoutY="80.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Generate Graph" />
+      <Button fx:id="btnGenerateGraph" layoutX="401.0" layoutY="80.0" mnemonicParsing="false" onAction="#generateGraphClick" prefHeight="25.0" prefWidth="175.0" text="Generate Graph" />
       <AnchorPane fx:id="paneTable" layoutX="25.0" layoutY="117.0" prefHeight="327.0" prefWidth="551.0" style="-fx-background-color: White;" />
       <Button layoutX="256.0" layoutY="455.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Finish" />
    </children>
