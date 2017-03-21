@@ -20,7 +20,7 @@ public class CategoricalTableController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		ArrayList<String> sampleData = MainFields.getSampleData();		
+		ArrayList<String> sampleData = MainFields.getSampleDataString();		
 		Collections.sort(sampleData);
 		
 		ArrayList<Integer> dataCount = countData(sampleData);
