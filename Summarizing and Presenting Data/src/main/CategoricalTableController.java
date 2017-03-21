@@ -24,8 +24,14 @@ public class CategoricalTableController implements Initializable {
 		Collections.sort(sampleData);
 		
 		ArrayList<Integer> dataCount = countData(sampleData);
+		MainFields.setDataCount(dataCount);
+		
 		ArrayList<Float> dataPercentage = convertPercentage(dataCount);
+		MainFields.setDataPercentage(dataPercentage);
+		
 		sampleData = fuseData(sampleData);
+		MainFields.setFusedData(sampleData);
+		
 		presentData(sampleData, dataPercentage);
 		
 		valueLabels.setCellValueFactory(new PropertyValueFactory

@@ -6,6 +6,9 @@ public class MainFields {
 	private static String type;
 	private static String title;
 	private static ArrayList<String> sampleData;
+	private static ArrayList<String> fusedData;
+	private static ArrayList<Integer> dataCount;
+	private static ArrayList<Float> dataPercentage;
 	
 	public static String getType() {
 		return type;
@@ -30,4 +33,30 @@ public class MainFields {
 	public static void setSampleData(ArrayList<String> sampleData) {
 		MainFields.sampleData = sampleData;
 	}
+
+	public static ArrayList<String> getFusedData() {
+		return fusedData;
+	}
+
+	public static void setFusedData(ArrayList<String> fusedData) {
+		MainFields.fusedData = fusedData;
+	}
+
+	public static ArrayList<Integer> getDataCount() {
+		return dataCount;
+	}
+
+	public static void setDataCount(ArrayList<Integer> dataCount) {
+		MainFields.dataCount = dataCount;
+	}
+
+	public static ArrayList<Float> getDataPercentage() {
+		return dataPercentage;
+	}
+
+	public static void setDataPercentage(ArrayList<Float> dataPercentage) {
+		MainFields.dataPercentage = dataPercentage;
+	}
+	
+	
 }
