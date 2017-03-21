@@ -5,10 +5,11 @@ import java.util.ArrayList;
 public class MainFields {
 	private static String type;
 	private static String title;
-	private static ArrayList<String> sampleData;
+	private static ArrayList<String> sampleDataString;
 	private static ArrayList<String> fusedData;
 	private static ArrayList<Integer> dataCount;
 	private static ArrayList<Float> dataPercentage;
+	private static ArrayList<Float> sampleDataFloat;
 	
 	public static String getType() {
 		return type;
@@ -26,12 +27,12 @@ public class MainFields {
 		MainFields.title = title;
 	}
 	
-	public static ArrayList<String> getSampleData() {
-		return sampleData;
+	public static ArrayList<String> getSampleDataString() {
+		return sampleDataString;
 	}
 	
-	public static void setSampleData(ArrayList<String> sampleData) {
-		MainFields.sampleData = sampleData;
+	public static void setSampleDataString(ArrayList<String> sampleDataString) {
+		MainFields.sampleDataString = sampleDataString;
 	}
 
 	public static ArrayList<String> getFusedData() {
@@ -56,6 +57,14 @@ public class MainFields {
 
 	public static void setDataPercentage(ArrayList<Float> dataPercentage) {
 		MainFields.dataPercentage = dataPercentage;
+	}
+
+	public static ArrayList<Float> getSampleDataFloat() {
+		return sampleDataFloat;
+	}
+
+	public static void setSampleDataFloat(ArrayList<Float> sampleDataFloat) {
+		MainFields.sampleDataFloat = sampleDataFloat;
 	}
 	
 	
