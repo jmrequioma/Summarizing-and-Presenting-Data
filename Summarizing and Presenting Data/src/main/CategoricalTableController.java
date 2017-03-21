@@ -77,7 +77,7 @@ public class CategoricalTableController implements Initializable {
 		return total;
 	}
 	
-	// debuggin purposes
+	// debugging purposes
 	private void printData(ArrayList<String> sampleData) {
 		for(String data : sampleData) {
 			System.out.println(data);
