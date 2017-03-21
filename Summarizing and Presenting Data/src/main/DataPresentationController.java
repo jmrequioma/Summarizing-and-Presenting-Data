@@ -52,9 +52,16 @@ public class DataPresentationController implements Initializable {
 	
 	@FXML
 	public void generateTableClick(ActionEvent event) throws IOException {
-		Pane paneCategoricalTable = FXMLLoader.load(getClass().
-				getResource("/main/CategoricalTable.fxml"));
-		paneTable.getChildren().add(paneCategoricalTable);
+		Pane paneTypeTable;
+		String type = MainFields.getType();
+		
+		if(type.equals("Categorical")) {
+			paneTypeTable = FXMLLoader.load(getClass().getResource("/main/CategoricalTable.fxml"));
+		} else { // type.equals("Numerical")
+			paneTypeTable = FXMLLoader.load(getClass().getResource("/main/NumericalTable.fxml"));
+		}
+		
+		paneTable.getChildren().add(paneTypeTable);
 	}
 	
 	@FXML
