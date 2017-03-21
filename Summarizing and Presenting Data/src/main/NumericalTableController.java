@@ -13,14 +13,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class NumericalTableController implements Initializable {
 
-	@FXML TableView<NumericalData> numericalData;
-	@FXML TableColumn<NumericalData, String> classLimit;
-	@FXML TableColumn<NumericalData, String> trueClassLimit;
-	@FXML TableColumn<NumericalData, Float> midpoint;
-	@FXML TableColumn<NumericalData, Integer> frequency;
-	@FXML TableColumn<NumericalData, Float> percentage;
-	@FXML TableColumn<NumericalData, Integer> cumulativeFrequency;
-	@FXML TableColumn<NumericalData, Float> cumulativePercentage;	
+	@FXML private TableView<NumericalData> numericalData;
+	@FXML private TableColumn<NumericalData, String> classLimit;
+	@FXML private TableColumn<NumericalData, String> trueClassLimit;
+	@FXML private TableColumn<NumericalData, Float> midpoint;
+	@FXML private TableColumn<NumericalData, Integer> frequency;
+	@FXML private TableColumn<NumericalData, Float> percentage;
+	@FXML private TableColumn<NumericalData, Integer> cumulativeFrequency;
+	@FXML private TableColumn<NumericalData, Float> cumulativePercentage;	
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
