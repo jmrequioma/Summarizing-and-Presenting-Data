@@ -16,7 +16,7 @@ public class CategoricalTableController implements Initializable {
 	
 	@FXML TableView<CategoricalData> categoricalData;
 	@FXML TableColumn<CategoricalData, String> valueLabels;
-	@FXML TableColumn<CategoricalData, Integer> percentage;
+	@FXML TableColumn<CategoricalData, Float> percentage;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -24,16 +24,14 @@ public class CategoricalTableController implements Initializable {
 		Collections.sort(sampleData);
 		
 		ArrayList<Integer> dataCount = countData(sampleData);
-		fuseData(sampleData);
-		presentData(sampleData, dataCount);
-		
-		categoricalData.getItems().add(
-				new CategoricalData("a", 1));
+		ArrayList<Float> dataPercentage = convertPercentage(dataCount);
+		sampleData = fuseData(sampleData);
+		presentData(sampleData, dataPercentage);
 		
 		valueLabels.setCellValueFactory(new PropertyValueFactory
 				<CategoricalData, String>("valueLabels"));
 		percentage.setCellValueFactory(new PropertyValueFactory
-				<CategoricalData, Integer>("percentage"));
+				<CategoricalData, Float>("percentage"));
 	}
 	
 	private ArrayList<Integer> countData(ArrayList<String> sampleData) {
@@ -58,7 +56,35 @@ public class CategoricalTableController implements Initializable {
 		return dataCount;
 	}
 	
-	private void fuseData(ArrayList<String> sampleData) {
+	private ArrayList<Float> convertPercentage(ArrayList<Integer> dataCount) {
+		int total = countTotal(dataCount);
+		ArrayList<Float> dataPercentage = new ArrayList<Float>();
+		
+		for(int i = 0; i < dataCount.size(); i++) {
+			int count = dataCount.get(0);
+			float percentage =  (count / (float) total) * 100;
+			dataPercentage.add(percentage);
+		}
+		
+		return dataPercentage;
+	}
+	
+	private int countTotal(ArrayList<Integer> dataCount) {
+		int total = 0;
+		for(Integer count : dataCount) {
+			total += count;
+		}
+		return total;
+	}
+	
+	// debuggin purposes
+	private void printData(ArrayList<String> sampleData) {
+		for(String data : sampleData) {
+			System.out.println(data);
+		}
+	}
+	
+	private ArrayList<String> fuseData(ArrayList<String> sampleData) {
 		ArrayList<String> fusedData = new ArrayList<String>();
 		fusedData.add(sampleData.get(0));
 		
@@ -74,14 +100,13 @@ public class CategoricalTableController implements Initializable {
 			}
 		}
 		
-		sampleData = fusedData;
+		return fusedData;
 	}
 	
-	private void presentData(ArrayList<String> sampleData, ArrayList<Integer> dataCount) {
-		System.out.println(sampleData.get(0));
-		for(int i = 0; i < sampleData.size() - 1; i++) {
+	private void presentData(ArrayList<String> sampleData, ArrayList<Float> dataPercentage) {
+		for(int i = 0; i < sampleData.size(); i++) {
 			categoricalData.getItems().add(
-					new CategoricalData(sampleData.get(i), 1));
+					new CategoricalData(sampleData.get(i), dataPercentage.get(i)));
 		}
 	}
 }
