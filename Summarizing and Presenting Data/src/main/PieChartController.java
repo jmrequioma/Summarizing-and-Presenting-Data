@@ -1,8 +1,10 @@
 package main;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,6 +13,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class PieChartController implements Initializable{
@@ -28,6 +32,11 @@ public class PieChartController implements Initializable{
 		pieChart.setTitle(MainFields.getTitle());
 		pieChart.setLegendSide(Side.BOTTOM);
 		pieChart.setLabelsVisible(true);
+		
+		for (final PieChart.Data data : pieChart.getData()) {
+			DecimalFormat df = new DecimalFormat("#.##");
+			data.nameProperty().bind(Bindings.concat(data.getName(), " ", "(", df.format(data.getPieValue()), " %", ")"));
+		}
 	}
 	
 	@FXML
