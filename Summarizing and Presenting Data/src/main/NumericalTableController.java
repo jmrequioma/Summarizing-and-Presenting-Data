@@ -27,18 +27,18 @@ public class NumericalTableController implements Initializable {
 		ArrayList<Float> sampleDataFloat = MainFields.getSampleDataFloat();
 		Collections.sort(sampleDataFloat);
 		
-		float highestVal = sampleDataFloat.get(sampleDataFloat.size() - 1);
-		float lowestVal = sampleDataFloat.get(0);
-		float range = highestVal - lowestVal;
-		int numClasses = sturge(range);
-		float width = range / numClasses;
-		ArrayList<String> classLimitList = classLimit(lowestVal, numClasses, width);
-		ArrayList<String> trueClassLimitList = trueClassLimit(lowestVal, numClasses, width);
-		ArrayList<Float> midpointList = midpoint(lowestVal, numClasses, width);
-		ArrayList<Integer> frequencyList = frequency(sampleDataFloat, trueClassLimitList);
-		ArrayList<Float> percentageList = percentage(frequencyList);
-		ArrayList<Integer> cumulativeFrequencyList = cumulativeFrequency(frequencyList);
-		ArrayList<Float> cumulativePercentageList = cumulativePercentage(percentageList);
+//		float highestVal = sampleDataFloat.get(sampleDataFloat.size() - 1);
+//		float lowestVal = sampleDataFloat.get(0);
+//		float range = highestVal - lowestVal;
+//		int numClasses = sturge(range);
+//		float width = range / numClasses;
+//		ArrayList<String> classLimitList = classLimit(lowestVal, numClasses, width);
+//		ArrayList<String> trueClassLimitList = trueClassLimit(lowestVal, numClasses, width);
+//		ArrayList<Float> midpointList = midpoint(lowestVal, numClasses, width);
+//		ArrayList<Integer> frequencyList = frequency(sampleDataFloat, trueClassLimitList);
+//		ArrayList<Float> percentageList = percentage(frequencyList);
+//		ArrayList<Integer> cumulativeFrequencyList = cumulativeFrequency(frequencyList);
+//		ArrayList<Float> cumulativePercentageList = cumulativePercentage(percentageList);
 		
 		classLimit.setCellValueFactory(new PropertyValueFactory
 				<NumericalData, String>("classLimit"));
@@ -60,11 +60,11 @@ public class NumericalTableController implements Initializable {
 		return (int) Math.ceil(1 + (3.322 * Math.log10(range)));
 	}
 	
-	private ArrayList<String> classLimit(float lowestVal, int numClasses, float width) {
-		ArrayList<String> classLimitList = new ArrayList<String>();
-		
-		for(int i = 0; i < numClasses; i++) {
-			
-		}
-	}
+//	private ArrayList<String> classLimit(float lowestVal, int numClasses, float width) {
+//		ArrayList<String> classLimitList = new ArrayList<String>();
+//		
+//		for(int i = 0; i < numClasses; i++) {
+//			
+//		}
+//	}
 }
