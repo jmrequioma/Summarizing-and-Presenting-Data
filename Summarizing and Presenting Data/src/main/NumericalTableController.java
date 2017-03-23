@@ -26,24 +26,41 @@ public class NumericalTableController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ArrayList<Float> sampleDataFloat = MainFields.getSampleDataFloat();
 		Collections.sort(sampleDataFloat);
-		printSampleDataFloat(sampleDataFloat);
+		// printSampleDataFloat(sampleDataFloat); // test
 		int mostDecimals = mostDecimals(sampleDataFloat);
 		
 		float highestVal = sampleDataFloat.get(sampleDataFloat.size() - 1);
 		float lowestVal = sampleDataFloat.get(0);
-		float range = highestVal - lowestVal;
+		float range = filterInaccuracy(highestVal - lowestVal, mostDecimals);
 		int numClasses = sturge(sampleDataFloat.size());
 		float width = range / numClasses;
+		System.out.println("Width: " + width);
 		width = roundUp(width, mostDecimals);
-		System.out.println("Number of classes: " + numClasses); // test
-		System.out.println("Width: " + width); // test
-//		ArrayList<String> classLimitList = classLimit(lowestVal, numClasses, width);
-//		ArrayList<String> trueClassLimitList = trueClassLimit(lowestVal, numClasses, width);
-//		ArrayList<Float> midpointList = midpoint(lowestVal, numClasses, width);
-//		ArrayList<Integer> frequencyList = frequency(sampleDataFloat, trueClassLimitList);
-//		ArrayList<Float> percentageList = percentage(frequencyList);
-//		ArrayList<Integer> cumulativeFrequencyList = cumulativeFrequency(frequencyList);
-//		ArrayList<Float> cumulativePercentageList = cumulativePercentage(percentageList);
+		System.out.println("Range: " + range);
+		System.out.println("Number of classes: " + numClasses);
+		System.out.println("Width: " + width);
+		ArrayList<Float> lowerClassLimitList = lowerClassLimit(lowestVal, numClasses, 
+															   width, mostDecimals);
+		ArrayList<Float> upperClassLimitList = upperClassLimit(lowestVal, numClasses, 
+															   width, mostDecimals);
+		ArrayList<String> classLimitList = classLimit(lowerClassLimitList, upperClassLimitList);
+		printClassLimits(classLimitList); // test
+		ArrayList<String> trueClassLimitList = trueClassLimit(lowerClassLimitList, 
+															  upperClassLimitList, mostDecimals);
+		printClassLimits(trueClassLimitList); // test
+		ArrayList<Float> midpointList = midpoint(lowerClassLimitList, upperClassLimitList, 
+												 width, mostDecimals);
+		printMidpoints(midpointList); // test
+		ArrayList<Integer> frequencyList = frequency(sampleDataFloat, lowerClassLimitList, 
+													 upperClassLimitList);
+		printFrequencies(frequencyList); // test
+		ArrayList<Float> percentageList = percentage(frequencyList);
+		printPercentages(percentageList); // test
+		ArrayList<Integer> cumulativeFrequencyList = cumulativeFrequency(frequencyList);
+		printCumulativeFreq(cumulativeFrequencyList); // test
+		ArrayList<Float> cumulativePercentageList = cumulativePercentage(percentageList);
+		populateTable(classLimitList, trueClassLimitList, midpointList, frequencyList, 
+					  percentageList, cumulativeFrequencyList, cumulativePercentageList);
 		
 		classLimit.setCellValueFactory(new PropertyValueFactory
 				<NumericalData, String>("classLimit"));
@@ -80,6 +97,33 @@ public class NumericalTableController implements Initializable {
 			}
 		}
 		return mostDecimals;
+	}
+	
+	private float filterInaccuracy(float floatingNumber, int mostDecimals) {
+		String floatingString = String.valueOf(floatingNumber);
+		int pointLocation = floatingString.indexOf('.');
+		int decimals = countDecimals(floatingString, pointLocation);
+		
+		if(decimals > mostDecimals) {
+			String mostSignificantExcess = floatingString.substring(
+					pointLocation + mostDecimals + 1, pointLocation + mostDecimals + 2);
+			int mostSignificantExcessInt = Integer.valueOf(mostSignificantExcess);
+			
+			if(mostSignificantExcessInt < 5) {
+				floatingString = floatingString.substring(0, pointLocation + mostDecimals + 1);
+			} else {
+				floatingString = floatingString.substring(0, pointLocation + mostDecimals + 1);
+				String lastDecimal = floatingString.substring(floatingString.length() - 1);
+				int lastDecimalInt = Integer.valueOf(lastDecimal);
+				lastDecimalInt++;
+				lastDecimal = String.valueOf(lastDecimalInt);
+				floatingString = floatingString.substring(0, floatingString.length() - 1);
+				floatingString += lastDecimal;
+			}
+		}
+		
+		floatingNumber = Float.valueOf(floatingString);
+		return floatingNumber;
 	}
 	
 	private int countDecimals(String floatingString, int pointLocation) {
@@ -122,6 +166,15 @@ public class NumericalTableController implements Initializable {
 		return coefficient;
 	}
 	
+	private float removeExcessDecimals(float floatingNumber, int mostDecimals) {
+		String floatString = String.valueOf(floatingNumber);
+		int pointLocation = floatString.indexOf('.');
+		floatString = floatString.substring(0, pointLocation + mostDecimals + 1);
+		floatingNumber = Float.valueOf(floatString);
+		
+		return floatingNumber;
+	}
+	
 	private String removeExcessDecimals(String floatString, int mostDecimals) {
 		int pointLocation = floatString.indexOf('.');
 		floatString = floatString.substring(0, pointLocation + mostDecimals + 1);
@@ -129,14 +182,216 @@ public class NumericalTableController implements Initializable {
 		return floatString;
 	}
 	
-//	private ArrayList<String> classLimit(float lowestVal, int numClasses, float width) {
-//		ArrayList<String> classLimitList = new ArrayList<String>();
-//		ArrayList<Float> lowerClassLimitList = new ArrayList<Float>();
-//		ArrayList<Float> upperClassLimitList = new ArrayList<Float>();
-//		
-//		for(int i = 0; i < numClasses; i++) {
-//			lowerClassLimitList.add(lowestVal + (width * i));
-//		}
-//		
-//	}
+	private ArrayList<Float> lowerClassLimit(float lowestVal, int numClasses, 
+											 float width, int mostDecimals) 
+	{
+		ArrayList<Float> lowerClassLimitList = new ArrayList<Float>();
+		
+		for(int i = 0; i < numClasses; i++) {
+			lowerClassLimitList.add(filterInaccuracy(lowestVal + (width * i), mostDecimals));
+		}
+		
+		return lowerClassLimitList;
+	}
+	
+	private ArrayList<Float> upperClassLimit(float lowestVal, int numClasses, 
+			float width, int mostDecimals) 
+	{
+		ArrayList<Float> upperClassLimitList = new ArrayList<Float>();
+		
+		float subtrahendCoefficient = coefficient(mostDecimals);
+		for(int i = 0; i < numClasses; i++) {
+			upperClassLimitList.add(filterInaccuracy(
+					(lowestVal + (width * (i + 1))) - subtrahendCoefficient, mostDecimals));
+		}
+		
+		return upperClassLimitList;
+	}
+	
+	private ArrayList<String> classLimit(ArrayList<Float> lowerClassLimitList,
+			ArrayList<Float> upperClassLimitList) 
+	{
+		
+		ArrayList<String> classLimitList = new ArrayList<String>();
+		int numClasses = lowerClassLimitList.size();
+		
+		for(int i = 0; i < numClasses; i++) {
+			String classLimit = lowerClassLimitList.get(i) + " - " + upperClassLimitList.get(i);
+			classLimitList.add(classLimit);
+		}
+		
+		return classLimitList;
+	}
+	
+	private ArrayList<String> trueClassLimit(ArrayList<Float> lowerClassLimitList, 
+			ArrayList<Float> upperClassLimitList, int mostDecimals) 
+	{
+		ArrayList<String> trueClassLimitList = new ArrayList<String>();
+		int numClasses = lowerClassLimitList.size();
+		float trueClassLimitCoefficient = trueClassLimitCoefficient(mostDecimals);
+		
+		for(int i = 0; i < numClasses; i++) {
+			float trueLowerClassLimit = filterInaccuracy(lowerClassLimitList.get(i) - 
+					trueClassLimitCoefficient, mostDecimals + 1);
+			float trueUpperClassLimit = filterInaccuracy(upperClassLimitList.get(i) + 
+					trueClassLimitCoefficient, mostDecimals + 1);
+			
+			String trueClassLimit = trueLowerClassLimit + " - " +trueUpperClassLimit;
+			trueClassLimitList.add(trueClassLimit);
+		}
+		
+		return trueClassLimitList;
+	}
+	
+	private float trueClassLimitCoefficient(int mostDecimals) {
+		float trueClassLimitCoefficient = 0.5f;
+		
+		for(int i = 0; i < mostDecimals; i++) {
+			trueClassLimitCoefficient /= 10;
+		}
+		
+		return trueClassLimitCoefficient;
+	}
+	
+	// debugging purposes
+	private void printClassLimits(ArrayList<String> classLimitList) {
+		for(String classLimit : classLimitList) {
+			System.out.println(classLimit);
+		}
+	}
+	
+	private ArrayList<Float> midpoint(ArrayList<Float> lowerClassLimitList,
+									  ArrayList<Float> upperClassLimitList, float width, int mostDecimals) 
+	{
+		ArrayList<Float> midpointList = new ArrayList<Float>();
+		int numClasses = lowerClassLimitList.size();
+		float lowerUpperDiff = upperClassLimitList.get(0) - lowerClassLimitList.get(0);
+		float firstMidpoint = (lowerUpperDiff / 2) + lowerClassLimitList.get(0);
+		
+		for(int i = 0 ; i < numClasses; i++) {
+			midpointList.add(filterInaccuracy(firstMidpoint + (width * i), mostDecimals + 1));
+		}
+		
+		return midpointList;
+	}
+	
+	// debugging purposes
+	private void printMidpoints(ArrayList<Float> midpoints) {
+		for(Float midpoint : midpoints) {
+			System.out.println(midpoint);
+		}
+	}
+	
+	private ArrayList<Integer> frequency(ArrayList<Float> sampleDataFloat, 
+			ArrayList<Float> lowerClassLimitList, ArrayList<Float> upperClassLimitList) 
+	{
+		int size = lowerClassLimitList.size();
+		ArrayList<Integer> frequencyList = initFrequencyList(size);
+		
+		int classRow = 0;
+		for(int i = 0; i < sampleDataFloat.size() && classRow < lowerClassLimitList.size(); i++) {
+			float data = sampleDataFloat.get(i);
+			float lowerClassLimit = lowerClassLimitList.get(classRow);
+			float upperClassLimit = upperClassLimitList.get(classRow);
+			
+			if(data >= lowerClassLimit && data <= upperClassLimit) {
+				frequencyList.set(classRow, frequencyList.get(classRow) + 1);
+			} else {
+				i--;
+				classRow++;
+			}
+		}
+		
+		return frequencyList;
+	}
+	
+	private ArrayList<Integer> initFrequencyList(int size) {
+		ArrayList<Integer> frequencyList = new ArrayList<Integer>(size);
+		
+		for(int i = 0; i < size; i++) {
+			frequencyList.add(0);
+		}
+		
+		return frequencyList;
+	}
+	
+	private void printFrequencies(ArrayList<Integer> frequencyList) {
+		for(Integer frequency : frequencyList) {
+			System.out.println("Frequency: " + frequency);
+		}
+	}
+	
+	private ArrayList<Float> percentage(ArrayList<Integer> frequencyList) {
+		ArrayList<Float> percentageList = new ArrayList<Float>();
+		int total = sumFrequencies(frequencyList);
+		
+		for(Integer frequency : frequencyList) {
+			float percentage = (frequency / (float) total) * 100;
+			percentageList.add(percentage);
+		}
+		
+		return percentageList;
+	}
+	
+	private int sumFrequencies(ArrayList<Integer> frequencyList) {
+		int total = 0;
+		
+		for(Integer frequency : frequencyList) {
+			total += frequency;
+		}
+		
+		return total;
+	}
+	
+	// debugging purposes
+	private void printPercentages(ArrayList<Float> percentageList) {
+		for(Float percentage : percentageList) {
+			System.out.println("Percentage: " + percentage);
+		}
+	}
+	
+	private ArrayList<Integer> cumulativeFrequency(ArrayList<Integer> frequencyList) {
+		ArrayList<Integer> cumulativeFrequencyList = new ArrayList<Integer>();
+		
+		int cumulativeFrequency = 0;
+		for(Integer frequency : frequencyList) {
+			cumulativeFrequency += frequency;
+			cumulativeFrequencyList.add(cumulativeFrequency);
+		}
+		
+		return cumulativeFrequencyList;
+	}
+	
+	// debugging purposes
+	private void printCumulativeFreq(ArrayList<Integer> cumulativeFrequencyList) {
+		for(Integer cumulativeFrequency : cumulativeFrequencyList) {
+			System.out.println("Cumulative Frequency: " + cumulativeFrequency);
+		}
+	}
+	
+	private ArrayList<Float> cumulativePercentage(ArrayList<Float> percentageList) {
+		ArrayList<Float> cumulativePercentageList = new ArrayList<Float>();
+		
+		float cumulativePercentage = 0;
+		for(Float percentage : percentageList) {
+			cumulativePercentage += percentage;
+			cumulativePercentageList.add(cumulativePercentage);
+		}
+		
+		return cumulativePercentageList;
+	}
+	
+	private void populateTable(ArrayList<String> classLimits, ArrayList<String> trueClassLimits,
+							   ArrayList<Float> midpoints, ArrayList<Integer> frequencies,
+							   ArrayList<Float> percentages, 
+							   ArrayList<Integer> cumulativeFrequencies, 
+							   ArrayList<Float> cumulativePercentages) 
+	{
+		for(int i = 0; i < classLimits.size(); i++) {
+			numericalData.getItems().add(new NumericalData(classLimits.get(i), 
+					trueClassLimits.get(i), midpoints.get(i), frequencies.get(i), 
+					percentages.get(i), cumulativeFrequencies.get(i), 
+					cumulativePercentages.get(i)));
+		}
+	}
 }
