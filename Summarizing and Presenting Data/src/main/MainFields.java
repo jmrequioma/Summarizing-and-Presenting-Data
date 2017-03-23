@@ -11,6 +11,10 @@ public class MainFields {
 	private static ArrayList<Float> dataPercentage;
 	private static ArrayList<Float> sampleDataFloat;
 	
+	// For numerical
+	private static ArrayList<String> classLimits;
+	private static ArrayList<Integer> frequencies;
+	
 	public static String getType() {
 		return type;
 	}
@@ -66,6 +70,20 @@ public class MainFields {
 	public static void setSampleDataFloat(ArrayList<Float> sampleDataFloat) {
 		MainFields.sampleDataFloat = sampleDataFloat;
 	}
-	
-	
+
+	public static ArrayList<String> getClassLimits() {
+		return classLimits;
+	}
+
+	public static void setClassLimits(ArrayList<String> classLimits) {
+		MainFields.classLimits = classLimits;
+	}
+
+	public static ArrayList<Integer> getFrequencies() {
+		return frequencies;
+	}
+
+	public static void setFrequencies(ArrayList<Integer> frequencies) {
+		MainFields.frequencies = frequencies;
+	}
 }
