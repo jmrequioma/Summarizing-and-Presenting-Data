@@ -59,9 +59,13 @@ public class DataPresentationController implements Initializable {
 	
 	@FXML
 	public void generateGraphClick(ActionEvent event) throws IOException {
+		Parent root;
 		Stage stage = new Stage();
-		
-		Parent root = FXMLLoader.load(getClass().getResource("PieChart.fxml"));
+		if (MainFields.getType().equals("Categorical")) {
+			root = FXMLLoader.load(getClass().getResource("PieChart.fxml"));
+		} else {
+			root = FXMLLoader.load(getClass().getResource("Histogram.fxml"));
+		}
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add("/main/bloodcrimson.css");
 		stage.setTitle("Pie Chart");
