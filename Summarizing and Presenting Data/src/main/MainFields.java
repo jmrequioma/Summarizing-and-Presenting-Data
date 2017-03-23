@@ -14,6 +14,7 @@ public class MainFields {
 	// For numerical
 	private static ArrayList<String> classLimits;
 	private static ArrayList<Integer> frequencies;
+	private static ArrayList<Float> percentages;
 	
 	public static String getType() {
 		return type;
@@ -85,5 +86,13 @@ public class MainFields {
 
 	public static void setFrequencies(ArrayList<Integer> frequencies) {
 		MainFields.frequencies = frequencies;
+	}
+
+	public static ArrayList<Float> getPercentages() {
+		return percentages;
+	}
+
+	public static void setPercentages(ArrayList<Float> percentages) {
+		MainFields.percentages = percentages;
 	}
 }

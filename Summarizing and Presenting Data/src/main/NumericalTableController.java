@@ -34,20 +34,25 @@ public class NumericalTableController implements Initializable {
 		float range = filterInaccuracy(highestVal - lowestVal, mostDecimals);
 		int numClasses = sturge(sampleDataFloat.size());
 		float width = range / numClasses;
-		System.out.println("Width: " + width);
 		width = roundUp(width, mostDecimals);
 		ArrayList<Float> lowerClassLimitList = lowerClassLimit(lowestVal, numClasses, 
 															   width, mostDecimals);
 		ArrayList<Float> upperClassLimitList = upperClassLimit(lowestVal, numClasses, 
 															   width, mostDecimals);
 		ArrayList<String> classLimitList = classLimit(lowerClassLimitList, upperClassLimitList);
+		MainFields.setClassLimits(classLimitList);
+		
 		ArrayList<String> trueClassLimitList = trueClassLimit(lowerClassLimitList, 
 															  upperClassLimitList, mostDecimals);
 		ArrayList<Float> midpointList = midpoint(lowerClassLimitList, upperClassLimitList, 
 												 width, mostDecimals);
 		ArrayList<Integer> frequencyList = frequency(sampleDataFloat, lowerClassLimitList, 
 													 upperClassLimitList);
+		MainFields.setFrequencies(frequencyList);
+		
 		ArrayList<Float> percentageList = percentage(frequencyList);
+		MainFields.setPercentages(percentageList);
+		
 		ArrayList<Integer> cumulativeFrequencyList = cumulativeFrequency(frequencyList);
 		printCumulativeFreq(cumulativeFrequencyList); // test
 		ArrayList<Float> cumulativePercentageList = cumulativePercentage(percentageList);
