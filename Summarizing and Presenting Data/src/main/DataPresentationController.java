@@ -63,12 +63,13 @@ public class DataPresentationController implements Initializable {
 		Stage stage = new Stage();
 		if (MainFields.getType().equals("Categorical")) {
 			root = FXMLLoader.load(getClass().getResource("PieChart.fxml"));
+			stage.setTitle("Pie Chart");
 		} else {
 			root = FXMLLoader.load(getClass().getResource("Histogram.fxml"));
+			stage.setTitle("Histogram");
 		}
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add("/main/bloodcrimson.css");
-		stage.setTitle("Pie Chart");
 		stage.setScene(scene);
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.initOwner(btnGenerateGraph.getScene().getWindow());
