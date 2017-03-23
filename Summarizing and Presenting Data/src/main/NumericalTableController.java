@@ -36,26 +36,18 @@ public class NumericalTableController implements Initializable {
 		float width = range / numClasses;
 		System.out.println("Width: " + width);
 		width = roundUp(width, mostDecimals);
-		System.out.println("Range: " + range);
-		System.out.println("Number of classes: " + numClasses);
-		System.out.println("Width: " + width);
 		ArrayList<Float> lowerClassLimitList = lowerClassLimit(lowestVal, numClasses, 
 															   width, mostDecimals);
 		ArrayList<Float> upperClassLimitList = upperClassLimit(lowestVal, numClasses, 
 															   width, mostDecimals);
 		ArrayList<String> classLimitList = classLimit(lowerClassLimitList, upperClassLimitList);
-		printClassLimits(classLimitList); // test
 		ArrayList<String> trueClassLimitList = trueClassLimit(lowerClassLimitList, 
 															  upperClassLimitList, mostDecimals);
-		printClassLimits(trueClassLimitList); // test
 		ArrayList<Float> midpointList = midpoint(lowerClassLimitList, upperClassLimitList, 
 												 width, mostDecimals);
-		printMidpoints(midpointList); // test
 		ArrayList<Integer> frequencyList = frequency(sampleDataFloat, lowerClassLimitList, 
 													 upperClassLimitList);
-		printFrequencies(frequencyList); // test
 		ArrayList<Float> percentageList = percentage(frequencyList);
-		printPercentages(percentageList); // test
 		ArrayList<Integer> cumulativeFrequencyList = cumulativeFrequency(frequencyList);
 		printCumulativeFreq(cumulativeFrequencyList); // test
 		ArrayList<Float> cumulativePercentageList = cumulativePercentage(percentageList);
@@ -76,13 +68,6 @@ public class NumericalTableController implements Initializable {
 				<NumericalData, Integer>("cumulativeFrequency"));
 		cumulativePercentage.setCellValueFactory(new PropertyValueFactory
 				<NumericalData, Float>("cumulativePercentage"));
-	}
-	
-	// debugging purposes
-	private void printSampleDataFloat(ArrayList<Float> sampleDataFloat) {
-		for(Float data : sampleDataFloat) {
-			System.out.println("Data: " + String.valueOf(data));
-		}
 	}
 	
 	private int mostDecimals (ArrayList<Float> sampleDataFloat) {
@@ -166,15 +151,6 @@ public class NumericalTableController implements Initializable {
 		return coefficient;
 	}
 	
-	private float removeExcessDecimals(float floatingNumber, int mostDecimals) {
-		String floatString = String.valueOf(floatingNumber);
-		int pointLocation = floatString.indexOf('.');
-		floatString = floatString.substring(0, pointLocation + mostDecimals + 1);
-		floatingNumber = Float.valueOf(floatString);
-		
-		return floatingNumber;
-	}
-	
 	private String removeExcessDecimals(String floatString, int mostDecimals) {
 		int pointLocation = floatString.indexOf('.');
 		floatString = floatString.substring(0, pointLocation + mostDecimals + 1);
@@ -253,13 +229,6 @@ public class NumericalTableController implements Initializable {
 		return trueClassLimitCoefficient;
 	}
 	
-	// debugging purposes
-	private void printClassLimits(ArrayList<String> classLimitList) {
-		for(String classLimit : classLimitList) {
-			System.out.println(classLimit);
-		}
-	}
-	
 	private ArrayList<Float> midpoint(ArrayList<Float> lowerClassLimitList,
 									  ArrayList<Float> upperClassLimitList, float width, int mostDecimals) 
 	{
@@ -273,13 +242,6 @@ public class NumericalTableController implements Initializable {
 		}
 		
 		return midpointList;
-	}
-	
-	// debugging purposes
-	private void printMidpoints(ArrayList<Float> midpoints) {
-		for(Float midpoint : midpoints) {
-			System.out.println(midpoint);
-		}
 	}
 	
 	private ArrayList<Integer> frequency(ArrayList<Float> sampleDataFloat, 
@@ -315,12 +277,6 @@ public class NumericalTableController implements Initializable {
 		return frequencyList;
 	}
 	
-	private void printFrequencies(ArrayList<Integer> frequencyList) {
-		for(Integer frequency : frequencyList) {
-			System.out.println("Frequency: " + frequency);
-		}
-	}
-	
 	private ArrayList<Float> percentage(ArrayList<Integer> frequencyList) {
 		ArrayList<Float> percentageList = new ArrayList<Float>();
 		int total = sumFrequencies(frequencyList);
@@ -341,13 +297,6 @@ public class NumericalTableController implements Initializable {
 		}
 		
 		return total;
-	}
-	
-	// debugging purposes
-	private void printPercentages(ArrayList<Float> percentageList) {
-		for(Float percentage : percentageList) {
-			System.out.println("Percentage: " + percentage);
-		}
 	}
 	
 	private ArrayList<Integer> cumulativeFrequency(ArrayList<Integer> frequencyList) {
