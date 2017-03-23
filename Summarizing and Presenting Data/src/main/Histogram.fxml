@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.HistogramController">
+   <children>
+      <Button fx:id="btnConfirmHistogram" layoutX="208.0" layoutY="454.0" mnemonicParsing="false" onAction="#confirmHistogramClick" prefHeight="25.0" prefWidth="184.0" text="Confirm" />
+      <BarChart fx:id="histogram" layoutX="50.0" layoutY="33.0">
+        <xAxis>
+          <CategoryAxis fx:id="xAxis" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="yAxis" side="LEFT" />
+        </yAxis>
+      </BarChart>
+   </children>
+</AnchorPane>
