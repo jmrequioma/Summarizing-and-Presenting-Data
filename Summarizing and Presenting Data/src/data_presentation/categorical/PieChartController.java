@@ -1,4 +1,4 @@
-package main;
+package data_presentation.categorical;
 
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -14,6 +14,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import main.MainFields;
 
 public class PieChartController implements Initializable {
 	private ObservableList<PieChart.Data> details = FXCollections.observableArrayList();

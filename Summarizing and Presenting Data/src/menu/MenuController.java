@@ -1,4 +1,4 @@
-package main;
+package menu;
 
 import java.io.IOException;
 
@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.MainFields;
 
 public class MenuController {
 	
@@ -30,10 +31,10 @@ public class MenuController {
 		}
 		
 		Stage stage = new Stage();
-		Parent root = FXMLLoader.load(getClass().getResource("InputTitle.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/title/InputTitle.fxml"));
 		
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add("/main/bloodcrimson.css");
+		scene.getStylesheets().add("/themes/bloodcrimson.css");
 		stage.setTitle("Input Title");
 		stage.setScene(scene);
 		stage.initModality(Modality.APPLICATION_MODAL);

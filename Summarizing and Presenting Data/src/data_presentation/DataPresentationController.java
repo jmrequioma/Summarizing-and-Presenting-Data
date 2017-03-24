@@ -1,4 +1,4 @@
-package main;
+package data_presentation;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.MainFields;
 
 public class DataPresentationController implements Initializable {
 
@@ -32,10 +33,10 @@ public class DataPresentationController implements Initializable {
 	@FXML
 	public void sampleDataClick(ActionEvent event) throws IOException {
 		Stage stage = new Stage();
-		Parent root = FXMLLoader.load(getClass().getResource("SampleData.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/sample_data/SampleData.fxml"));
 		
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add("/main/bloodcrimson.css");
+		scene.getStylesheets().add("/themes/bloodcrimson.css");
 		stage.setTitle("Sample Data");
 		stage.setScene(scene);
 		stage.initModality(Modality.APPLICATION_MODAL);
@@ -49,9 +50,9 @@ public class DataPresentationController implements Initializable {
 		String type = MainFields.getType();
 		
 		if(type.equals("Categorical")) {
-			paneTypeTable = FXMLLoader.load(getClass().getResource("/main/CategoricalTable.fxml"));
+			paneTypeTable = FXMLLoader.load(getClass().getResource("/data_presentation/categorical/CategoricalTable.fxml"));
 		} else { // type.equals("Numerical")
-			paneTypeTable = FXMLLoader.load(getClass().getResource("/main/NumericalTable.fxml"));
+			paneTypeTable = FXMLLoader.load(getClass().getResource("/data_presentation/numerical/NumericalTable.fxml"));
 		}
 		
 		paneTable.getChildren().add(paneTypeTable);
@@ -62,14 +63,14 @@ public class DataPresentationController implements Initializable {
 		Parent root;
 		Stage stage = new Stage();
 		if (MainFields.getType().equals("Categorical")) {
-			root = FXMLLoader.load(getClass().getResource("PieChart.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/data_presentation/categorical/PieChart.fxml"));
 			stage.setTitle("Pie Chart");
 		} else {
-			root = FXMLLoader.load(getClass().getResource("Histogram.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/data_presentation/numerical/Histogram.fxml"));
 			stage.setTitle("Histogram");
 		}
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add("/main/bloodcrimson.css");
+		scene.getStylesheets().add("/themes/bloodcrimson.css");
 		stage.setScene(scene);
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.initOwner(btnGenerateGraph.getScene().getWindow());

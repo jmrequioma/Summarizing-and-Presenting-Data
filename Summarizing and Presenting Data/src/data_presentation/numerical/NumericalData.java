@@ -1,4 +1,4 @@
-package main;
+package data_presentation.numerical;
 
 public class NumericalData {
 	String classLimit;

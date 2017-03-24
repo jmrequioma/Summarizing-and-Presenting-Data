@@ -1,4 +1,4 @@
-package main;
+package data_presentation.numerical;
 
 import java.net.URL;
 import java.util.Random;
@@ -15,6 +15,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import main.MainFields;
 
 public class HistogramController implements Initializable {
 	private ObservableList<String> details = FXCollections.observableArrayList();
@@ -39,9 +40,9 @@ public class HistogramController implements Initializable {
     	xAxis.setVisible(true);
     	yAxis.setVisible(true);
     	XYChart.Series series1 = new XYChart.Series();
-    	series1.setName("Histogram");  
-    	for (int i = 0; i < 9; i++) {
-    		series1.getData().add(new XYChart.Data("group" + "[" + Integer.toString(i) + "]", group[i]));
+    	series1.setName(MainFields.getTitle());  
+    	for (int i = 0; i < MainFields.getClassLimits().size(); i++) {
+    		series1.getData().add(new XYChart.Data(MainFields.getClassLimits().get(i), MainFields.getFrequencies().get(i)));
     	}
     	histogram.getData().addAll(series1);
     }

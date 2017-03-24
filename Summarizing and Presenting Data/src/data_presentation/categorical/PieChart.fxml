@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.PieChartController">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="data_presentation.categorical.PieChartController">
    <children>
       <Button fx:id="btnConfirmPieChart" layoutX="208.0" layoutY="454.0" mnemonicParsing="false" onAction="#confirmPieChartClick" prefHeight="25.0" prefWidth="184.0" text="Confirm" />
       <PieChart fx:id="pieChart" layoutX="50.0" layoutY="35.0" />

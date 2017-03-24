@@ -6,7 +6,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.HistogramController">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="data_presentation.numerical.HistogramController">
    <children>
       <Button fx:id="btnConfirmHistogram" layoutX="208.0" layoutY="454.0" mnemonicParsing="false" onAction="#confirmHistogramClick" prefHeight="25.0" prefWidth="184.0" text="Confirm" />
       <BarChart fx:id="histogram" layoutX="50.0" layoutY="33.0">

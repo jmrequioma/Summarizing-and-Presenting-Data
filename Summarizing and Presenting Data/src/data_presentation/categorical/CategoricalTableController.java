@@ -1,4 +1,4 @@
-package main;
+package data_presentation.categorical;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import main.MainFields;
 
 public class CategoricalTableController implements Initializable {
 

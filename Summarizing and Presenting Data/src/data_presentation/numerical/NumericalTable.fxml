@@ -4,7 +4,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="327.0" prefWidth="551.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.NumericalTableController">
+<AnchorPane prefHeight="327.0" prefWidth="551.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="data_presentation.numerical.NumericalTableController">
    <children>
       <TableView fx:id="numericalData" prefHeight="327.0" prefWidth="551.0">
         <columns>

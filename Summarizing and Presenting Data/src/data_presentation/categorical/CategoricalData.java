@@ -1,4 +1,4 @@
-package main;
+package data_presentation.categorical;
 
 public class CategoricalData {
 	

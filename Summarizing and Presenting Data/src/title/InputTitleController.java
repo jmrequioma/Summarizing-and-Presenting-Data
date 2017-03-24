@@ -1,4 +1,4 @@
-package main;
+package title;
 
 import java.io.IOException;
 
@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import main.MainFields;
 
 public class InputTitleController {
 	
@@ -34,9 +35,9 @@ public class InputTitleController {
 			MainFields.setTitle(title);
 			
 			Stage ownerStage = (Stage) stage.getOwner();
-			Parent root = FXMLLoader.load(getClass().getResource("DataPresentation.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/data_presentation/DataPresentation.fxml"));
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add("/main/bloodcrimson.css");
+			scene.getStylesheets().add("/themes/bloodcrimson.css");
 			ownerStage.setScene(scene);
 			ownerStage.show();
 			stage.close();
