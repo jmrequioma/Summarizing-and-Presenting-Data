@@ -24,6 +24,7 @@ public class DataPresentationController implements Initializable {
 	@FXML private Button btnSampleData;
 	@FXML private Button btnGenerateTable;
 	@FXML private Button btnGenerateGraph;
+	@FXML private Button btnFinish;
 	@FXML private Label lblTitle;
 	@FXML private Pane paneTable;
 
@@ -93,6 +94,16 @@ public class DataPresentationController implements Initializable {
 			alert.setContentText("Ooops, clicking this is not allowed. Please enter sample data first.");
 			alert.showAndWait();
 		}
-		
+	}
+	
+	@FXML
+	public void finishClick() throws IOException {
+		Stage stage = (Stage) btnFinish.getScene().getWindow();
+		Parent root = FXMLLoader.load(getClass().getResource("/menu/Menu.fxml"));
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add("/themes/bloodcrimson.css");
+		stage.setScene(scene);
+		stage.show();
+		//reset();  <---- TODO
 	}
 }
