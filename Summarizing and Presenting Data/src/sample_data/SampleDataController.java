@@ -58,26 +58,31 @@ public class SampleDataController implements Initializable {
 	private void addItemClick(ActionEvent event) throws IOException {
 		String type = MainFields.getType();
 		String input = txtFSampleData.getText();
-		
-		if(type.equals("Categorical")) {
-			txtASampleData.appendText(input + " ");
-			sampleDatasString.add(input);
-			//System.out.println(sampleDatas.get(ctr++));   // testing purposes
-		} else { // type.equals("Numerical")
-			try {
-				float inputFloat = Float.valueOf(input);
-				txtASampleData.appendText(inputFloat + " ");
-				sampleDatasFloat.add(inputFloat);
-			} catch ( java.lang.RuntimeException re) {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Critical Error");
-				alert.setHeaderText("Invalid Input!!!");
-				alert.setContentText("Ooops, input is not allowed! Please change the input.");
-				alert.showAndWait();
-			}
-			
+		if (input.equals("") || input.startsWith(" ")) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Critical Error");
+			alert.setHeaderText("Invalid Input!!!");
+			alert.setContentText("Ooops, input is not allowed! Please change the input.");
+			alert.showAndWait();
+		} else {
+			if(type.equals("Categorical")) {
+				txtASampleData.appendText(input + " ");
+				sampleDatasString.add(input);
+				//System.out.println(sampleDatas.get(ctr++));   // testing purposes
+			} else { // type.equals("Numerical")
+				try {
+					float inputFloat = Float.valueOf(input);
+					txtASampleData.appendText(inputFloat + " ");
+					sampleDatasFloat.add(inputFloat);
+				} catch ( java.lang.RuntimeException re) {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Critical Error");
+					alert.setHeaderText("Invalid Input!!!");
+					alert.setContentText("Ooops, input is not allowed! Please change the input.");
+					alert.showAndWait();
+				}
+			}	
 		}
-		
 		txtFSampleData.clear();
 		ctr++;
 	}
