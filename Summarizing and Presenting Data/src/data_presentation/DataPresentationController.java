@@ -10,8 +10,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -46,34 +48,51 @@ public class DataPresentationController implements Initializable {
 	
 	@FXML
 	public void generateTableClick(ActionEvent event) throws IOException {
-		Pane paneTypeTable;
-		String type = MainFields.getType();
-		
-		if(type.equals("Categorical")) {
-			paneTypeTable = FXMLLoader.load(getClass().getResource("/data_presentation/categorical/CategoricalTable.fxml"));
-		} else { // type.equals("Numerical")
-			paneTypeTable = FXMLLoader.load(getClass().getResource("/data_presentation/numerical/NumericalTable.fxml"));
+		if (MainFields.getValid()) {
+			Pane paneTypeTable;
+			String type = MainFields.getType();
+			
+			if(type.equals("Categorical")) {
+				paneTypeTable = FXMLLoader.load(getClass().getResource("/data_presentation/categorical/CategoricalTable.fxml"));
+			} else { // type.equals("Numerical")
+				paneTypeTable = FXMLLoader.load(getClass().getResource("/data_presentation/numerical/NumericalTable.fxml"));
+			}
+			
+			paneTable.getChildren().add(paneTypeTable);
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Critical Error");
+			alert.setHeaderText("Invalid Click!!!");
+			alert.setContentText("Ooops, clicking this is not allowed. Please enter sample data first.");
+			alert.showAndWait();
 		}
-		
-		paneTable.getChildren().add(paneTypeTable);
 	}
 	
 	@FXML
 	public void generateGraphClick(ActionEvent event) throws IOException {
-		Parent root;
-		Stage stage = new Stage();
-		if (MainFields.getType().equals("Categorical")) {
-			root = FXMLLoader.load(getClass().getResource("/data_presentation/categorical/PieChart.fxml"));
-			stage.setTitle("Pie Chart");
+		if (MainFields.getValid()) {
+			Parent root;
+			Stage stage = new Stage();
+			if (MainFields.getType().equals("Categorical")) {
+				root = FXMLLoader.load(getClass().getResource("/data_presentation/categorical/PieChart.fxml"));
+				stage.setTitle("Pie Chart");
+			} else {
+				root = FXMLLoader.load(getClass().getResource("/data_presentation/numerical/Histogram.fxml"));
+				stage.setTitle("Histogram");
+			}
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add("/themes/bloodcrimson.css");
+			stage.setScene(scene);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.initOwner(btnGenerateGraph.getScene().getWindow());
+			stage.showAndWait();
 		} else {
-			root = FXMLLoader.load(getClass().getResource("/data_presentation/numerical/Histogram.fxml"));
-			stage.setTitle("Histogram");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Critical Error");
+			alert.setHeaderText("Invalid Click!!!");
+			alert.setContentText("Ooops, clicking this is not allowed. Please enter sample data first.");
+			alert.showAndWait();
 		}
-		Scene scene = new Scene(root);
-		scene.getStylesheets().add("/themes/bloodcrimson.css");
-		stage.setScene(scene);
-		stage.initModality(Modality.APPLICATION_MODAL);
-		stage.initOwner(btnGenerateGraph.getScene().getWindow());
-		stage.showAndWait();
+		
 	}
 }

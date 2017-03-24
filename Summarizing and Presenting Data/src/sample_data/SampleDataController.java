@@ -5,9 +5,11 @@ import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import main.MainFields;
 
@@ -33,9 +35,18 @@ public class SampleDataController {
 			sampleDatasString.add(input);
 			//System.out.println(sampleDatas.get(ctr++));   // testing purposes
 		} else { // type.equals("Numerical")
-			float inputFloat = Float.valueOf(input);
-			txtASampleData.appendText(inputFloat + " ");
-			sampleDatasFloat.add(inputFloat);
+			try {
+				float inputFloat = Float.valueOf(input);
+				txtASampleData.appendText(inputFloat + " ");
+				sampleDatasFloat.add(inputFloat);
+			} catch ( java.lang.RuntimeException re) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Critical Error");
+				alert.setHeaderText("Invalid Input!!!");
+				alert.setContentText("Ooops, input is not allowed! Please change the input.");
+				alert.showAndWait();
+			}
+			
 		}
 		
 		txtFSampleData.clear();
@@ -97,5 +108,6 @@ public class SampleDataController {
 		} else { // type.equals("Numerical")
 			MainFields.setSampleDataFloat(sampleDatasFloat);
 		}
+		MainFields.setValid(true);
 	}
 }

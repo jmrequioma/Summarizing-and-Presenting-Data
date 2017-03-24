@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class MainFields {
 	private static String type;
 	private static String title;
+	private static boolean valid;
 	private static ArrayList<String> sampleDataString;
 	private static ArrayList<String> fusedData;
 	private static ArrayList<Integer> dataCount;
@@ -30,6 +31,14 @@ public class MainFields {
 	
 	public static void setTitle(String title) {
 		MainFields.title = title;
+	}
+	
+	public static boolean getValid() {
+		return valid;
+	}
+	
+	public static void setValid(boolean valid) {
+		MainFields.valid = valid;
 	}
 	
 	public static ArrayList<String> getSampleDataString() {
