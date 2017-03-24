@@ -3,9 +3,9 @@ package data_presentation.categorical;
 public class CategoricalData {
 	
 	private String valueLabels;
-	private float percentage;
+	private String percentage;
 	
-	public CategoricalData(String valueLabels, float percentage) {
+	public CategoricalData(String valueLabels, String percentage) {
 		this.valueLabels = valueLabels;
 		this.percentage = percentage;
 	}
@@ -18,11 +18,11 @@ public class CategoricalData {
 		this.valueLabels = valueLabels;
 	}
 	
-	public float getPercentage() {
+	public String getPercentage() {
 		return percentage;
 	}
 	
-	public void setPercentage(float percentage) {
+	public void setPercentage(String percentage) {
 		this.percentage = percentage;
 	}
 }

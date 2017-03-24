@@ -17,7 +17,7 @@ public class CategoricalTableController implements Initializable {
 	
 	@FXML private TableView<CategoricalData> categoricalData;
 	@FXML private TableColumn<CategoricalData, String> valueLabels;
-	@FXML private TableColumn<CategoricalData, Float> percentage;
+	@FXML private TableColumn<CategoricalData, String> percentage;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -28,17 +28,19 @@ public class CategoricalTableController implements Initializable {
 		MainFields.setDataCount(dataCount);
 		
 		ArrayList<Float> dataPercentage = convertPercentage(dataCount);
+		ArrayList<String> dataPercentageString = convertString(dataPercentage);
+		float totalPercentage = sumPercentages(dataPercentage);
 		MainFields.setDataPercentage(dataPercentage);
 		
 		sampleData = fuseData(sampleData);
 		MainFields.setFusedData(sampleData);
 		
-		presentData(sampleData, dataPercentage);
+		presentData(sampleData, dataPercentageString, totalPercentage);
 		
 		valueLabels.setCellValueFactory(new PropertyValueFactory
 				<CategoricalData, String>("valueLabels"));
 		percentage.setCellValueFactory(new PropertyValueFactory
-				<CategoricalData, Float>("percentage"));
+				<CategoricalData, String>("percentage"));
 	}
 	
 	private ArrayList<Integer> countData(ArrayList<String> sampleData) {
@@ -76,6 +78,26 @@ public class CategoricalTableController implements Initializable {
 		return dataPercentage;
 	}
 	
+	private ArrayList<String> convertString(ArrayList<Float> floatingList) {
+		ArrayList<String> stringList = new ArrayList<String>();
+		
+		for(Float item : floatingList) {
+			stringList.add(String.valueOf(item));
+		}
+		
+		return stringList;
+	}
+	
+	private float sumPercentages(ArrayList<Float> dataPercentage) {
+		float sum = 0;
+		
+		for(Float data : dataPercentage) {
+			sum += data;
+		}
+		
+		return sum;
+	}
+	
 	private int countTotal(ArrayList<Integer> dataCount) {
 		int total = 0;
 		for(Integer count : dataCount) {
@@ -103,10 +125,15 @@ public class CategoricalTableController implements Initializable {
 		return fusedData;
 	}
 	
-	private void presentData(ArrayList<String> sampleData, ArrayList<Float> dataPercentage) {
+	private void presentData(ArrayList<String> sampleData, ArrayList<String> dataPercentage, 
+			float totalPercentage) 
+	{
 		for(int i = 0; i < sampleData.size(); i++) {
 			categoricalData.getItems().add(
-					new CategoricalData(sampleData.get(i), dataPercentage.get(i)));
+					new CategoricalData(sampleData.get(i), dataPercentage.get(i) + "%"));
 		}
+		categoricalData.getItems().add(
+				new CategoricalData("", totalPercentage + "%"));
+		
 	}
 }
