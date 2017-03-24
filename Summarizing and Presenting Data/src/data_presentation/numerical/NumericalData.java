@@ -4,13 +4,14 @@ public class NumericalData {
 	String classLimit;
 	String trueClassLimit;
 	String midpoint;
-	int frequency;
-	float percentage;
-	int cumulativeFrequency;
-	float cumulativePercentage;
+	String frequency;
+	String percentage;
+	String cumulativeFrequency;
+	String cumulativePercentage;
 	
 	public NumericalData(String classLimit, String trueClassLimit, String midpoint, 
-			int frequency, float percentage, int cumulativeFrequency, float cumulativePercentage) 
+			String frequency, String percentage, String cumulativeFrequency, 
+			String cumulativePercentage) 
 	{
 		this.classLimit = classLimit;
 		this.trueClassLimit = trueClassLimit;
@@ -45,37 +46,35 @@ public class NumericalData {
 		this.midpoint = midpoint;
 	}
 	
-	public int getFrequency() {
+	public String getFrequency() {
 		return frequency;
 	}
 	
-	public void setFrequency(int frequency) {
+	public void setFrequency(String frequency) {
 		this.frequency = frequency;
 	}
 	
-	public float getPercentage() {
+	public String getPercentage() {
 		return percentage;
 	}
 	
-	public void setPercentage(float percentage) {
+	public void setPercentage(String percentage) {
 		this.percentage = percentage;
 	}
 	
-	public int getCumulativeFrequency() {
+	public String getCumulativeFrequency() {
 		return cumulativeFrequency;
 	}
 	
-	public void setCumulativeFrequency(int cumulativeFrequency) {
+	public void setCumulativeFrequency(String cumulativeFrequency) {
 		this.cumulativeFrequency = cumulativeFrequency;
 	}
 	
-	public float getCumulativePercentage() {
+	public String getCumulativePercentage() {
 		return cumulativePercentage;
 	}
 	
-	public void setCumulativePercentage(float cumulativePercentage) {
+	public void setCumulativePercentage(String cumulativePercentage) {
 		this.cumulativePercentage = cumulativePercentage;
-	}
-	
-	
+	}	
 }

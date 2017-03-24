@@ -18,10 +18,10 @@ public class NumericalTableController implements Initializable {
 	@FXML private TableColumn<NumericalData, String> classLimit;
 	@FXML private TableColumn<NumericalData, String> trueClassLimit;
 	@FXML private TableColumn<NumericalData, String> midpoint;
-	@FXML private TableColumn<NumericalData, Integer> frequency;
-	@FXML private TableColumn<NumericalData, Float> percentage;
-	@FXML private TableColumn<NumericalData, Integer> cumulativeFrequency;
-	@FXML private TableColumn<NumericalData, Float> cumulativePercentage;	
+	@FXML private TableColumn<NumericalData, String> frequency;
+	@FXML private TableColumn<NumericalData, String> percentage;
+	@FXML private TableColumn<NumericalData, String> cumulativeFrequency;
+	@FXML private TableColumn<NumericalData, String> cumulativePercentage;	
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -52,15 +52,17 @@ public class NumericalTableController implements Initializable {
 		
 		ArrayList<Integer> frequencyList = frequency(sampleDataFloat, lowerClassLimitList, 
 				upperClassLimitList);
+		ArrayList<String> frequencyListString = convertIntToString(frequencyList);
 		
 		ArrayList<Float> percentageList = percentage(frequencyList);
+		ArrayList<String> percentageListString = convertFloatToString(percentageList);
 		
-		ArrayList<Integer> cumulativeFrequencyList = cumulativeFrequency(frequencyList);
+		ArrayList<String> cumulativeFrequencyList = cumulativeFrequency(frequencyList);
 		
-		ArrayList<Float> cumulativePercentageList = cumulativePercentage(percentageList);
+		ArrayList<String> cumulativePercentageList = cumulativePercentage(percentageList);
 		
-		populateTable(classLimitList, trueClassLimitList, midpointList, frequencyList, 
-					  percentageList, cumulativeFrequencyList, cumulativePercentageList);
+		populateTable(classLimitList, trueClassLimitList, midpointList, frequencyListString, 
+					  percentageListString, cumulativeFrequencyList, cumulativePercentageList);
 		
 		MainFields.setMidpoints(midpointList);
 		MainFields.setFrequencies(frequencyList);
@@ -295,6 +297,26 @@ public class NumericalTableController implements Initializable {
 		return frequencyList;
 	}
 	
+	private ArrayList<String> convertIntToString(ArrayList<Integer> integerList) {
+		ArrayList<String> stringList = new ArrayList<String>();
+		
+		for(Integer item : integerList) {
+			stringList.add(String.valueOf(item));
+		}
+		
+		return stringList;
+	}
+	
+	private ArrayList<String> convertFloatToString(ArrayList<Float> floatList) {
+		ArrayList<String> stringList = new ArrayList<String>();
+		
+		for(Float item : floatList) {
+			stringList.add(String.valueOf(item));
+		}
+		
+		return stringList;
+	}
+	
 	private ArrayList<Float> percentage(ArrayList<Integer> frequencyList) {
 		ArrayList<Float> percentageList = new ArrayList<Float>();
 		int total = sumFrequencies(frequencyList);
@@ -318,42 +340,49 @@ public class NumericalTableController implements Initializable {
 		return total;
 	}
 	
-	private ArrayList<Integer> cumulativeFrequency(ArrayList<Integer> frequencyList) {
-		ArrayList<Integer> cumulativeFrequencyList = new ArrayList<Integer>();
+	private ArrayList<String> cumulativeFrequency(ArrayList<Integer> frequencyList) {
+		ArrayList<String> cumulativeFrequencyList = new ArrayList<String>();
 		
 		int cumulativeFrequency = 0;
 		for(Integer frequency : frequencyList) {
 			cumulativeFrequency += frequency;
-			cumulativeFrequencyList.add(cumulativeFrequency);
+			cumulativeFrequencyList.add(String.valueOf(cumulativeFrequency));
 		}
 		
 		return cumulativeFrequencyList;
 	}
 	
-	private ArrayList<Float> cumulativePercentage(ArrayList<Float> percentageList) {
-		ArrayList<Float> cumulativePercentageList = new ArrayList<Float>();
+	private ArrayList<String> cumulativePercentage(ArrayList<Float> percentageList) {
+		ArrayList<String> cumulativePercentageList = new ArrayList<String>();
 		int decimals = 2;
 		
 		float cumulativePercentage = 0;
 		for(Float percentage : percentageList) {
 			cumulativePercentage += percentage;
-			cumulativePercentageList.add(filterInaccuracy(cumulativePercentage, decimals));
+			cumulativePercentage = filterInaccuracy(cumulativePercentage, decimals);
+			cumulativePercentageList.add(String.valueOf(cumulativePercentage));
 		}
 		
 		return cumulativePercentageList;
 	}
 	
 	private void populateTable(ArrayList<String> classLimits, ArrayList<String> trueClassLimits,
-			ArrayList<String> midpoints, ArrayList<Integer> frequencies,
-			ArrayList<Float> percentages, ArrayList<Integer> cumulativeFrequencies, 
-			ArrayList<Float> cumulativePercentages) 
+			ArrayList<String> midpoints, ArrayList<String> frequencies,
+			ArrayList<String> percentages, ArrayList<String> cumulativeFrequencies, 
+			ArrayList<String> cumulativePercentages) 
 	{
 		for(int i = 0; i < classLimits.size(); i++) {
 			numericalData.getItems().add(new NumericalData(classLimits.get(i), 
 					trueClassLimits.get(i), midpoints.get(i), frequencies.get(i), 
-					percentages.get(i), cumulativeFrequencies.get(i), 
-					cumulativePercentages.get(i)));
+					percentages.get(i) + "%", cumulativeFrequencies.get(i), 
+					cumulativePercentages.get(i) + "%"));
 		}
+		
+		String totalFrequency = cumulativeFrequencies.get(cumulativeFrequencies.size() - 1);
+		String totalPercentage = cumulativePercentages.get(cumulativePercentages.size() - 1);
+		
+		numericalData.getItems().add(new NumericalData("", "", "", "n = " + totalFrequency,
+				totalPercentage + "%", "", ""));
 	}
 	
 	private void initCellValues() {
@@ -364,12 +393,12 @@ public class NumericalTableController implements Initializable {
 		midpoint.setCellValueFactory(new PropertyValueFactory
 				<NumericalData, String>("midpoint"));
 		frequency.setCellValueFactory(new PropertyValueFactory
-				<NumericalData, Integer>("frequency"));
+				<NumericalData, String>("frequency"));
 		percentage.setCellValueFactory(new PropertyValueFactory
-				<NumericalData, Float>("percentage"));
+				<NumericalData, String>("percentage"));
 		cumulativeFrequency.setCellValueFactory(new PropertyValueFactory
-				<NumericalData, Integer>("cumulativeFrequency"));
+				<NumericalData, String>("cumulativeFrequency"));
 		cumulativePercentage.setCellValueFactory(new PropertyValueFactory
-				<NumericalData, Float>("cumulativePercentage"));
+				<NumericalData, String>("cumulativePercentage"));
 	}
 }
