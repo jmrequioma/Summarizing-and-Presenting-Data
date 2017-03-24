@@ -17,7 +17,7 @@ public class NumericalTableController implements Initializable {
 	@FXML private TableView<NumericalData> numericalData;
 	@FXML private TableColumn<NumericalData, String> classLimit;
 	@FXML private TableColumn<NumericalData, String> trueClassLimit;
-	@FXML private TableColumn<NumericalData, Float> midpoint;
+	@FXML private TableColumn<NumericalData, String> midpoint;
 	@FXML private TableColumn<NumericalData, Integer> frequency;
 	@FXML private TableColumn<NumericalData, Float> percentage;
 	@FXML private TableColumn<NumericalData, Integer> cumulativeFrequency;
@@ -27,53 +27,46 @@ public class NumericalTableController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ArrayList<Float> sampleDataFloat = MainFields.getSampleDataFloat();
 		Collections.sort(sampleDataFloat);
-		// printSampleDataFloat(sampleDataFloat); // test
+		
 		int mostDecimals = mostDecimals(sampleDataFloat);
 		
 		float highestVal = sampleDataFloat.get(sampleDataFloat.size() - 1);
 		float lowestVal = sampleDataFloat.get(0);
 		float range = filterInaccuracy(highestVal - lowestVal, mostDecimals);
+		
 		int numClasses = sturge(sampleDataFloat.size());
+		
 		float width = range / numClasses;
 		width = roundUp(width, mostDecimals);
-		ArrayList<Float> lowerClassLimitList = lowerClassLimit(lowestVal, numClasses, 
-															   width, mostDecimals);
-		ArrayList<Float> upperClassLimitList = upperClassLimit(lowestVal, numClasses, 
-															   width, mostDecimals);
-		ArrayList<String> classLimitList = classLimit(lowerClassLimitList, upperClassLimitList);
-		MainFields.setClassLimits(classLimitList);
 		
+		ArrayList<Float> lowerClassLimitList = lowerClassLimit(lowestVal, numClasses, 
+				width, mostDecimals);
+		ArrayList<Float> upperClassLimitList = upperClassLimit(lowestVal, numClasses, 
+				width, mostDecimals);
+		ArrayList<String> classLimitList = classLimit(lowerClassLimitList, upperClassLimitList);
 		ArrayList<String> trueClassLimitList = trueClassLimit(lowerClassLimitList, 
-															  upperClassLimitList, mostDecimals);
-		ArrayList<Float> midpointList = midpoint(lowerClassLimitList, upperClassLimitList, 
-												 width, mostDecimals);
+				upperClassLimitList, mostDecimals);
+		
+		ArrayList<String> midpointList = midpoint(lowerClassLimitList, upperClassLimitList, 
+				width, mostDecimals);
+		
 		ArrayList<Integer> frequencyList = frequency(sampleDataFloat, lowerClassLimitList, 
-													 upperClassLimitList);
-		MainFields.setFrequencies(frequencyList);
+				upperClassLimitList);
 		
 		ArrayList<Float> percentageList = percentage(frequencyList);
-		MainFields.setPercentages(percentageList);
 		
 		ArrayList<Integer> cumulativeFrequencyList = cumulativeFrequency(frequencyList);
-		printCumulativeFreq(cumulativeFrequencyList); // test
+		
 		ArrayList<Float> cumulativePercentageList = cumulativePercentage(percentageList);
+		
 		populateTable(classLimitList, trueClassLimitList, midpointList, frequencyList, 
 					  percentageList, cumulativeFrequencyList, cumulativePercentageList);
 		
-		classLimit.setCellValueFactory(new PropertyValueFactory
-				<NumericalData, String>("classLimit"));
-		trueClassLimit.setCellValueFactory(new PropertyValueFactory
-				<NumericalData, String>("trueClassLimit"));
-		midpoint.setCellValueFactory(new PropertyValueFactory
-				<NumericalData, Float>("midpoint"));
-		frequency.setCellValueFactory(new PropertyValueFactory
-				<NumericalData, Integer>("frequency"));
-		percentage.setCellValueFactory(new PropertyValueFactory
-				<NumericalData, Float>("percentage"));
-		cumulativeFrequency.setCellValueFactory(new PropertyValueFactory
-				<NumericalData, Integer>("cumulativeFrequency"));
-		cumulativePercentage.setCellValueFactory(new PropertyValueFactory
-				<NumericalData, Float>("cumulativePercentage"));
+		MainFields.setMidpoints(midpointList);
+		MainFields.setFrequencies(frequencyList);
+		MainFields.setPercentages(percentageList);
+		
+		initCellValues();
 	}
 	
 	private int mostDecimals (ArrayList<Float> sampleDataFloat) {
@@ -90,6 +83,16 @@ public class NumericalTableController implements Initializable {
 		return mostDecimals;
 	}
 	
+	private int countDecimals(String floatingString, int pointLocation) {
+		int decimals = (floatingString.length() - 1) - pointLocation;
+		if(decimals == 1) {
+			if(floatingString.charAt(pointLocation + 1) == '0') {
+				decimals = 0;
+			} 
+		}
+		return decimals;
+	}
+	
 	private float filterInaccuracy(float floatingNumber, int mostDecimals) {
 		String floatingString = String.valueOf(floatingNumber);
 		int pointLocation = floatingString.indexOf('.');
@@ -101,15 +104,9 @@ public class NumericalTableController implements Initializable {
 			int mostSignificantExcessInt = Integer.valueOf(mostSignificantExcess);
 			
 			if(mostSignificantExcessInt < 5) {
-				floatingString = floatingString.substring(0, pointLocation + mostDecimals + 1);
+				floatingString = filterRoundDown(floatingString, pointLocation + mostDecimals + 1);
 			} else {
-				floatingString = floatingString.substring(0, pointLocation + mostDecimals + 1);
-				String lastDecimal = floatingString.substring(floatingString.length() - 1);
-				int lastDecimalInt = Integer.valueOf(lastDecimal);
-				lastDecimalInt++;
-				lastDecimal = String.valueOf(lastDecimalInt);
-				floatingString = floatingString.substring(0, floatingString.length() - 1);
-				floatingString += lastDecimal;
+				floatingString = filterRoundUp(floatingString, pointLocation + mostDecimals + 1);
 			}
 		}
 		
@@ -117,14 +114,27 @@ public class NumericalTableController implements Initializable {
 		return floatingNumber;
 	}
 	
-	private int countDecimals(String floatingString, int pointLocation) {
-		int decimals = (floatingString.length() - 1) - pointLocation;
-		if(decimals == 1) {
-			if(floatingString.charAt(pointLocation + 1) == '0') {
-				decimals = 0;
-			} 
-		}
-		return decimals;
+	private String filterRoundDown(String floatingString, int roundDownLocation) {
+		return floatingString.substring(0, roundDownLocation);
+	}
+	
+	private String filterRoundUp(String floatingString, int roundUpLocation) {
+		floatingString = filterRoundDown(floatingString, roundUpLocation);
+		floatingString = incrementLastDecimal(floatingString);
+		return floatingString;
+	}
+	
+	private String incrementLastDecimal(String floatingString) {
+		String lastDecimal = floatingString.substring(floatingString.length() - 1);
+		int lastDecimalInt = Integer.valueOf(lastDecimal);
+		
+		lastDecimalInt++;
+		lastDecimal = String.valueOf(lastDecimalInt);
+		
+		floatingString = floatingString.substring(0, floatingString.length() - 1);
+		floatingString += lastDecimal;
+		
+		return floatingString;
 	}
 	
 	private int sturge(float range) {
@@ -235,16 +245,18 @@ public class NumericalTableController implements Initializable {
 		return trueClassLimitCoefficient;
 	}
 	
-	private ArrayList<Float> midpoint(ArrayList<Float> lowerClassLimitList,
-									  ArrayList<Float> upperClassLimitList, float width, int mostDecimals) 
+	private ArrayList<String> midpoint(ArrayList<Float> lowerClassLimitList,
+			ArrayList<Float> upperClassLimitList, float width, int mostDecimals) 
 	{
-		ArrayList<Float> midpointList = new ArrayList<Float>();
+		ArrayList<String> midpointList = new ArrayList<String>();
 		int numClasses = lowerClassLimitList.size();
 		float lowerUpperDiff = upperClassLimitList.get(0) - lowerClassLimitList.get(0);
 		float firstMidpoint = (lowerUpperDiff / 2) + lowerClassLimitList.get(0);
 		
 		for(int i = 0 ; i < numClasses; i++) {
-			midpointList.add(filterInaccuracy(firstMidpoint + (width * i), mostDecimals + 1));
+			float midpoint = filterInaccuracy(firstMidpoint + (width * i), mostDecimals + 1);
+			String midpointString = String.valueOf(midpoint);
+			midpointList.add(midpointString);
 		}
 		
 		return midpointList;
@@ -317,13 +329,6 @@ public class NumericalTableController implements Initializable {
 		return cumulativeFrequencyList;
 	}
 	
-	// debugging purposes
-	private void printCumulativeFreq(ArrayList<Integer> cumulativeFrequencyList) {
-		for(Integer cumulativeFrequency : cumulativeFrequencyList) {
-			System.out.println("Cumulative Frequency: " + cumulativeFrequency);
-		}
-	}
-	
 	private ArrayList<Float> cumulativePercentage(ArrayList<Float> percentageList) {
 		ArrayList<Float> cumulativePercentageList = new ArrayList<Float>();
 		
@@ -337,10 +342,9 @@ public class NumericalTableController implements Initializable {
 	}
 	
 	private void populateTable(ArrayList<String> classLimits, ArrayList<String> trueClassLimits,
-							   ArrayList<Float> midpoints, ArrayList<Integer> frequencies,
-							   ArrayList<Float> percentages, 
-							   ArrayList<Integer> cumulativeFrequencies, 
-							   ArrayList<Float> cumulativePercentages) 
+			ArrayList<String> midpoints, ArrayList<Integer> frequencies,
+			ArrayList<Float> percentages, ArrayList<Integer> cumulativeFrequencies, 
+			ArrayList<Float> cumulativePercentages) 
 	{
 		for(int i = 0; i < classLimits.size(); i++) {
 			numericalData.getItems().add(new NumericalData(classLimits.get(i), 
@@ -348,5 +352,22 @@ public class NumericalTableController implements Initializable {
 					percentages.get(i), cumulativeFrequencies.get(i), 
 					cumulativePercentages.get(i)));
 		}
+	}
+	
+	private void initCellValues() {
+		classLimit.setCellValueFactory(new PropertyValueFactory
+				<NumericalData, String>("classLimit"));
+		trueClassLimit.setCellValueFactory(new PropertyValueFactory
+				<NumericalData, String>("trueClassLimit"));
+		midpoint.setCellValueFactory(new PropertyValueFactory
+				<NumericalData, String>("midpoint"));
+		frequency.setCellValueFactory(new PropertyValueFactory
+				<NumericalData, Integer>("frequency"));
+		percentage.setCellValueFactory(new PropertyValueFactory
+				<NumericalData, Float>("percentage"));
+		cumulativeFrequency.setCellValueFactory(new PropertyValueFactory
+				<NumericalData, Integer>("cumulativeFrequency"));
+		cumulativePercentage.setCellValueFactory(new PropertyValueFactory
+				<NumericalData, Float>("cumulativePercentage"));
 	}
 }

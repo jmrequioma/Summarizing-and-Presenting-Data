@@ -63,13 +63,6 @@ public class CategoricalTableController implements Initializable {
 		return dataCount;
 	}
 	
-	// debugging purposes
-	private void printDataCount(ArrayList<Integer> dataCount) {
-		for(Integer count : dataCount) {
-			System.out.println(count);
-		}
-	}
-	
 	private ArrayList<Float> convertPercentage(ArrayList<Integer> dataCount) {
 		int total = countTotal(dataCount);
 		ArrayList<Float> dataPercentage = new ArrayList<Float>();
@@ -89,19 +82,6 @@ public class CategoricalTableController implements Initializable {
 			total += count;
 		}
 		return total;
-	}
-	
-	// debugging purposes
-	private void printDataPercentage(ArrayList<Float> dataPercentage) {
-		for(Float percentage: dataPercentage) {
-			System.out.println(percentage);
-		}
-	}
-	// debugging purposes
-	private void printData(ArrayList<String> sampleData) {
-		for(String data : sampleData) {
-			System.out.println(data);
-		}
 	}
 	
 	private ArrayList<String> fuseData(ArrayList<String> sampleData) {

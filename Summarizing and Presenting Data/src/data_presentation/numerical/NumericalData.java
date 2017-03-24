@@ -3,13 +3,13 @@ package data_presentation.numerical;
 public class NumericalData {
 	String classLimit;
 	String trueClassLimit;
-	float midpoint;
+	String midpoint;
 	int frequency;
 	float percentage;
 	int cumulativeFrequency;
 	float cumulativePercentage;
 	
-	public NumericalData(String classLimit, String trueClassLimit, float midpoint, 
+	public NumericalData(String classLimit, String trueClassLimit, String midpoint, 
 			int frequency, float percentage, int cumulativeFrequency, float cumulativePercentage) 
 	{
 		this.classLimit = classLimit;
@@ -37,11 +37,11 @@ public class NumericalData {
 		this.trueClassLimit = trueClassLimit;
 	}
 	
-	public float getMidpoint() {
+	public String getMidpoint() {
 		return midpoint;
 	}
 	
-	public void setMidpoint(float midpoint) {
+	public void setMidpoint(String midpoint) {
 		this.midpoint = midpoint;
 	}
 	
