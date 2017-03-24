@@ -13,8 +13,6 @@ public class MainFields {
 	private static ArrayList<Integer> dataCount;
 	private static ArrayList<Float> dataPercentage;
 	private static ArrayList<Float> sampleDataFloat;
-	
-	// For numerical
 	private static ArrayList<String> midpoints;
 	private static ArrayList<Integer> frequencies;
 	private static ArrayList<Float> percentages;
@@ -121,5 +119,19 @@ public class MainFields {
 
 	public static void setFloatExists(boolean floatExists) {
 		MainFields.floatExists = floatExists;
+	}
+	
+	public static void reset() {
+		type = "";
+		title = "";
+		valid = false;
+		sampleDataString.clear();
+		fusedData.clear();
+		dataCount.clear();
+		dataPercentage.clear();
+		sampleDataFloat.clear();
+		midpoints.clear();
+		frequencies.clear();
+		percentages.clear();
 	}
 }
