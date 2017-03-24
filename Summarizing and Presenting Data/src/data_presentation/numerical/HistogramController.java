@@ -41,8 +41,8 @@ public class HistogramController implements Initializable {
     	yAxis.setVisible(true);
     	XYChart.Series series1 = new XYChart.Series();
     	series1.setName(MainFields.getTitle());  
-    	for (int i = 0; i < MainFields.getClassLimits().size(); i++) {
-    		series1.getData().add(new XYChart.Data(MainFields.getClassLimits().get(i), MainFields.getFrequencies().get(i)));
+    	for (int i = 0; i < MainFields.getMidpoints().size(); i++) {
+    		series1.getData().add(new XYChart.Data(MainFields.getMidpoints().get(i), MainFields.getFrequencies().get(i)));
     	}
     	histogram.getData().addAll(series1);
     }
