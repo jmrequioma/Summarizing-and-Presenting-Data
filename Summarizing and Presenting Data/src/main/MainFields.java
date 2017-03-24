@@ -12,7 +12,7 @@ public class MainFields {
 	private static ArrayList<Float> sampleDataFloat;
 	
 	// For numerical
-	private static ArrayList<String> classLimits;
+	private static ArrayList<String> midpoints;
 	private static ArrayList<Integer> frequencies;
 	private static ArrayList<Float> percentages;
 	
@@ -72,12 +72,12 @@ public class MainFields {
 		MainFields.sampleDataFloat = sampleDataFloat;
 	}
 
-	public static ArrayList<String> getClassLimits() {
-		return classLimits;
+	public static ArrayList<String> getMidpoints() {
+		return midpoints;
 	}
 
-	public static void setClassLimits(ArrayList<String> classLimits) {
-		MainFields.classLimits = classLimits;
+	public static void setMidpoints(ArrayList<String> midpoints) {
+		MainFields.midpoints = midpoints;
 	}
 
 	public static ArrayList<Integer> getFrequencies() {

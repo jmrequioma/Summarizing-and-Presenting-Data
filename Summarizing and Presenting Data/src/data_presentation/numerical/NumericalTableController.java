@@ -44,7 +44,6 @@ public class NumericalTableController implements Initializable {
 		ArrayList<Float> upperClassLimitList = upperClassLimit(lowestVal, numClasses, 
 				width, mostDecimals);
 		ArrayList<String> classLimitList = classLimit(lowerClassLimitList, upperClassLimitList);
-		MainFields.setClassLimits(classLimitList);
 		ArrayList<String> trueClassLimitList = trueClassLimit(lowerClassLimitList, 
 				upperClassLimitList, mostDecimals);
 		
@@ -63,6 +62,7 @@ public class NumericalTableController implements Initializable {
 		populateTable(classLimitList, trueClassLimitList, midpointList, frequencyList, 
 					  percentageList, cumulativeFrequencyList, cumulativePercentageList);
 		
+		MainFields.setMidpoints(midpointList);
 		MainFields.setFrequencies(frequencyList);
 		MainFields.setPercentages(percentageList);
 		
