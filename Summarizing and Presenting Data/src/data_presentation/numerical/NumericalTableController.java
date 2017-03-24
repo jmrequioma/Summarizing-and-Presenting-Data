@@ -298,10 +298,11 @@ public class NumericalTableController implements Initializable {
 	private ArrayList<Float> percentage(ArrayList<Integer> frequencyList) {
 		ArrayList<Float> percentageList = new ArrayList<Float>();
 		int total = sumFrequencies(frequencyList);
+		int mostDecimals = 2;
 		
 		for(Integer frequency : frequencyList) {
 			float percentage = (frequency / (float) total) * 100;
-			percentageList.add(percentage);
+			percentageList.add(filterInaccuracy(percentage, mostDecimals));
 		}
 		
 		return percentageList;
@@ -331,11 +332,12 @@ public class NumericalTableController implements Initializable {
 	
 	private ArrayList<Float> cumulativePercentage(ArrayList<Float> percentageList) {
 		ArrayList<Float> cumulativePercentageList = new ArrayList<Float>();
+		int decimals = 2;
 		
 		float cumulativePercentage = 0;
 		for(Float percentage : percentageList) {
 			cumulativePercentage += percentage;
-			cumulativePercentageList.add(cumulativePercentage);
+			cumulativePercentageList.add(filterInaccuracy(cumulativePercentage, decimals));
 		}
 		
 		return cumulativePercentageList;
