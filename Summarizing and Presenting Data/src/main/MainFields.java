@@ -6,6 +6,8 @@ public class MainFields {
 	private static String type;
 	private static String title;
 	private static boolean valid;
+	private static boolean stringExists;
+	private static boolean floatExists;
 	private static ArrayList<String> sampleDataString;
 	private static ArrayList<String> fusedData;
 	private static ArrayList<Integer> dataCount;
@@ -101,6 +103,22 @@ public class MainFields {
 
 	public static void setPercentages(ArrayList<Float> percentages) {
 		MainFields.percentages = percentages;
+	}
+
+	public static boolean getStringExists() {
+		return stringExists;
+	}
+
+	public static void setStringExists(boolean stringExists) {
+		MainFields.stringExists = stringExists;
+	}
+
+	public static boolean getFloatExists() {
+		return floatExists;
+	}
+
+	public static void setFloatExists(boolean floatExists) {
+		MainFields.floatExists = floatExists;
 	}
 	
 	public static void reset() {
