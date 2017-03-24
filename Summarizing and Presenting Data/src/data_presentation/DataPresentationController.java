@@ -104,6 +104,6 @@ public class DataPresentationController implements Initializable {
 		scene.getStylesheets().add("/themes/bloodcrimson.css");
 		stage.setScene(scene);
 		stage.show();
-		//reset();  <---- TODO
+		MainFields.reset(); 
 	}
 }
