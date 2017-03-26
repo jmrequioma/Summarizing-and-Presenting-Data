@@ -27,7 +27,7 @@ public class HistogramController implements Initializable {
     	histogram.setTitle(MainFields.getTitle());
           
     	xAxis.setLabel("Range");
-    	yAxis.setLabel("Frequency");
+    	yAxis.setLabel("Midpoints");
     	xAxis.setVisible(true);
     	yAxis.setVisible(true);
     	XYChart.Series series1 = new XYChart.Series();
