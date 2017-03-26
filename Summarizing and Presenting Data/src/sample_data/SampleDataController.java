@@ -142,15 +142,32 @@ public class SampleDataController implements Initializable {
 	@FXML
 	private void confirmSampleDataClick(ActionEvent event) {
 		Stage stage = (Stage) btnConfirmSampleData.getScene().getWindow();
-		stage.close();
 		
 		String type = MainFields.getType();
 		if(type.equals("Categorical")) {
-			MainFields.setSampleDataString(sampleDatasString);
-			MainFields.setStringExists(true);
+			if (sampleDatasString.isEmpty()) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Critical Error");
+				alert.setHeaderText("Invalid Click!!!");
+				alert.setContentText("Ooops, clicking this is not allowed. Please enter sample data first.");
+				alert.showAndWait();
+			} else {
+				MainFields.setSampleDataString(sampleDatasString);
+				MainFields.setStringExists(true);
+				stage.close();
+			}
 		} else { // type.equals("Numerical")
-			MainFields.setSampleDataFloat(sampleDatasFloat);
-			MainFields.setFloatExists(true);
+			if (sampleDatasFloat.isEmpty()) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Critical Error");
+				alert.setHeaderText("Invalid Click!!!");
+				alert.setContentText("Ooops, clicking this is not allowed. Please enter sample data first.");
+				alert.showAndWait();
+			} else {
+				MainFields.setSampleDataFloat(sampleDatasFloat);
+				MainFields.setFloatExists(true);
+				stage.close();
+			}
 		}
 		MainFields.setValid(true);
 	}
