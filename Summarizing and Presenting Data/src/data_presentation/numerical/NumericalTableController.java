@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
+import com.google.common.eventbus.EventBus;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -69,6 +71,7 @@ public class NumericalTableController implements Initializable {
 		MainFields.setPercentages(percentageList);
 		
 		initCellValues();
+		initCollapse();
 	}
 	
 	private int mostDecimals (ArrayList<Float> sampleDataFloat) {
@@ -400,5 +403,28 @@ public class NumericalTableController implements Initializable {
 				<NumericalData, String>("cumulativeFrequency"));
 		cumulativePercentage.setCellValueFactory(new PropertyValueFactory
 				<NumericalData, String>("cumulativePercentage"));
+	}
+	
+	private void initCollapse() {
+		CbCollapse cbCollapse = new CbCollapse("collapse at click of check button");
+		CollapseListener collapseListener = new CollapseListener(cbCollapse);
+		EventBus eventBus = MainFields.getEventBus();
+		eventBus.register(collapseListener);
+		MainFields.setCollapseListener(collapseListener);
+		
+		cbCollapse.addClickListener(new ClickListener() {
+
+			@Override
+			public void collapse(ClickEvent e) {
+				System.out.println("Collapse");
+				
+			}
+
+			@Override
+			public void recover(ClickEvent e) {
+				System.out.println("Recover");
+				
+			}
+		});
 	}
 }

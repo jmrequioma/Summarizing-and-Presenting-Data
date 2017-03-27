@@ -1,5 +1,7 @@
 package main;
 	
+import com.google.common.eventbus.EventBus;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,6 +13,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			EventBus eventBus = new EventBus();
+			MainFields.setEventBus(eventBus);
+			
 			Parent root = FXMLLoader.load(getClass().getResource("/menu/Menu.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add("/themes/bloodcrimson.css");

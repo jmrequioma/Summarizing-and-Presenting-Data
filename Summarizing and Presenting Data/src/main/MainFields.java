@@ -2,7 +2,13 @@ package main;
 
 import java.util.ArrayList;
 
+import com.google.common.eventbus.EventBus;
+
+import data_presentation.numerical.CollapseListener;
+
 public class MainFields {
+	private static EventBus eventBus;
+	private static CollapseListener collapseListener;
 	private static String type;
 	private static String title;
 	private static boolean valid;
@@ -17,6 +23,22 @@ public class MainFields {
 	private static ArrayList<Integer> frequencies;
 	private static ArrayList<Float> percentages;
 	
+	public static EventBus getEventBus() {
+		return eventBus;
+	}
+
+	public static void setEventBus(EventBus eventBus) {
+		MainFields.eventBus = eventBus;
+	}
+
+	public static CollapseListener getCollapseListener() {
+		return collapseListener;
+	}
+
+	public static void setCollapseListener(CollapseListener collapseListener) {
+		MainFields.collapseListener = collapseListener;
+	}
+
 	public static String getType() {
 		return type;
 	}
@@ -122,6 +144,7 @@ public class MainFields {
 	}
 	
 	public static void reset() {
+		eventBus.unregister(collapseListener);
 		type = "";
 		title = "";
 		valid = false;

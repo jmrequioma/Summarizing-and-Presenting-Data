@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.google.common.eventbus.EventBus;
+
+import data_presentation.numerical.CollapseEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +36,22 @@ public class DataPresentationController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		lblTitle.setText(MainFields.getTitle());
+		cbCollapseState();
+	}
+	
+	private void cbCollapseState() {
+		String type = MainFields.getType();
+		if(type.equals("Categorical")) {
+			cbCollapse.setDisable(true);
+		} else {
+			cbCollapse.setDisable(false);
+		}
+	}
+	
+	@FXML
+	private void collapse() {
+		EventBus eventBus = MainFields.getEventBus();
+		eventBus.post(new CollapseEvent(cbCollapse.isSelected()));
 	}
 	
 	@FXML
