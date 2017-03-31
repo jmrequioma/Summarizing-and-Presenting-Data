@@ -31,11 +31,11 @@ public class MainFields {
 		MainFields.eventBus = eventBus;
 	}
 
-	public static CollapseListener getCollapseListener() {
+	public static CollapseListener getCollapseListenerFirst() {
 		return collapseListener;
 	}
 
-	public static void setCollapseListener(CollapseListener collapseListener) {
+	public static void setCollapseListenerFirst(CollapseListener collapseListener) {
 		MainFields.collapseListener = collapseListener;
 	}
 

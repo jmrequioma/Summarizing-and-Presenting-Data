@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 
 import com.google.common.eventbus.EventBus;
 
-import data_presentation.numerical.CollapseEvent;
+import data_presentation.numerical.CollapseFirstEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,7 +29,8 @@ public class DataPresentationController implements Initializable {
 	@FXML private Button btnGenerateTable;
 	@FXML private Button btnGenerateGraph;
 	@FXML private Button btnFinish;
-	@FXML private CheckBox cbCollapse;
+	@FXML private CheckBox cbCollapseFirst;
+	@FXML private CheckBox cbCollapseLast;
 	@FXML private Label lblTitle;
 	@FXML private Pane paneTable;
 
@@ -42,16 +43,24 @@ public class DataPresentationController implements Initializable {
 	private void cbCollapseState() {
 		String type = MainFields.getType();
 		if(type.equals("Categorical")) {
-			cbCollapse.setDisable(true);
+			cbCollapseFirst.setDisable(true);
+			cbCollapseLast.setDisable(true);
 		} else {
-			cbCollapse.setDisable(false);
+			cbCollapseFirst.setDisable(false);
+			cbCollapseLast.setDisable(false);
 		}
 	}
 	
 	@FXML
-	private void collapse() {
+	private void collapseFirst() {
 		EventBus eventBus = MainFields.getEventBus();
-		eventBus.post(new CollapseEvent(cbCollapse.isSelected()));
+		eventBus.post(new CollapseFirstEvent(cbCollapseFirst));
+	}
+	
+	@FXML
+	private void collapseLast() {
+		EventBus eventBus = MainFields.getEventBus();
+		eventBus.post(new CollapseLastEvent(cbCollapseLast));
 	}
 	
 	@FXML

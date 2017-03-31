@@ -2,22 +2,40 @@ package data_presentation.numerical;
 
 import com.google.common.eventbus.Subscribe;
 
+import data_presentation.CollapseLastEvent;
+import javafx.scene.control.CheckBox;
+
 public class CollapseListener {
 
-	private CbCollapse checkBox;
+	private CbCollapse checkBoxFirst;
+	private CbCollapse checkBoxLast;
 	
-	public CollapseListener(CbCollapse checkBox) {
-		this.checkBox = checkBox;
+	public CollapseListener(CbCollapse checkBoxFirst, CbCollapse checkBoxLast) {
+		this.checkBoxFirst = checkBoxFirst;
+		this.checkBoxLast = checkBoxLast;
 	}
 	
 	@Subscribe
-	public void listen(CollapseEvent event) {
-		boolean selected = event.isSelected();
+	public void listenFirst(CollapseFirstEvent event) {
+		CheckBox src = event.getSource();
+		boolean selected = src.isSelected();
 		
 		if(selected) {
-			checkBox.fireCollapseEvent();
+			checkBoxFirst.fireCollapseEvent();
 		} else {
-			checkBox.fireRecoverEvent();
+			checkBoxFirst.fireRecoverEvent();
+		}
+	}
+	
+	@Subscribe
+	public void listenLast(CollapseLastEvent event) {
+		CheckBox src = event.getSource();
+		boolean selected = src.isSelected();
+		
+		if(selected) {
+			checkBoxLast.fireCollapseEvent();
+		} else {
+			checkBoxLast.fireRecoverEvent();
 		}
 	}
 }

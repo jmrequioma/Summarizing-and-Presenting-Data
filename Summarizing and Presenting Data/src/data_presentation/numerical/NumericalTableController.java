@@ -3,10 +3,12 @@ package data_presentation.numerical;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.google.common.eventbus.EventBus;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -406,18 +408,25 @@ public class NumericalTableController implements Initializable {
 	}
 	
 	private void initCollapse() {
-		CbCollapse cbCollapse = new CbCollapse("collapse at click of check button");
-		CollapseListener collapseListener = new CollapseListener(cbCollapse);
+		CbCollapse cbCollapseFirst = new CbCollapse("Collapse first");
+		CbCollapse cbCollapseLast = new CbCollapse("Collapse last");
+		CollapseListener collapseListener = new CollapseListener(
+				cbCollapseFirst, cbCollapseLast);
 		EventBus eventBus = MainFields.getEventBus();
 		eventBus.register(collapseListener);
-		MainFields.setCollapseListener(collapseListener);
+		MainFields.setCollapseListenerFirst(collapseListener);
 		
-		cbCollapse.addClickListener(new ClickListener() {
+		initCheckBoxListeners(cbCollapseFirst, cbCollapseLast);
+		
+	}
+	
+	private void initCheckBoxListeners(CbCollapse cbCollapseFirst, CbCollapse cbCollapseLast) {
+		cbCollapseFirst.addClickListener(new ClickListener() {
 
 			@Override
 			public void collapse(ClickEvent e) {
-				System.out.println("Collapse");
-				
+				collapseRow(0);
+
 			}
 
 			@Override
@@ -426,5 +435,78 @@ public class NumericalTableController implements Initializable {
 				
 			}
 		});
+		
+		cbCollapseLast.addClickListener(new ClickListener() {
+
+			@Override
+			public void collapse(ClickEvent e) {
+				int rowPosition = numericalData.getItems().size() - 2;
+				collapseRow(rowPosition);
+			}
+
+			@Override
+			public void recover(ClickEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	private void collapseRow(int rowPosition) {
+		ObservableList<NumericalData> numericalDataList = numericalData.getItems();
+		NumericalData row = numericalDataList.get(rowPosition);
+		openEnd(row, rowPosition);
+		
+		ArrayList<NumericalData> copyList = new ArrayList<NumericalData>();
+		copy(copyList, numericalDataList);
+		numericalDataList.removeAll(numericalDataList);
+		copy(numericalDataList, copyList);
+	}
+	
+	private void openEnd(NumericalData row, int rowPosition) {
+		String classLimit = row.getClassLimit();
+		String midPoint = row.getMidpoint();
+		String position = position(rowPosition);
+
+		classLimit = openEndClassLimit(classLimit, position);
+		midPoint = "-";
+
+		row.setClassLimit(classLimit);
+		row.setMidpoint(midPoint);
+	}
+	
+	private String position(int rowPosition) {
+		String position = "";
+		
+		if(rowPosition == 0) {
+			position = "first";
+		} else {
+			position = "last";
+		}
+		
+		return position;
+	}
+	
+	private String openEndClassLimit(String classLimit, String position) {
+		String classLimitCopy = classLimit;
+		int indexOfDash = classLimit.indexOf('-');
+		
+		if(position.equals("first")) {
+			String secondHalf = classLimit.substring(indexOfDash + 1, classLimit.length());
+			classLimitCopy = "<" + secondHalf;
+		} else {
+			String secondHalf = classLimit.substring(0, indexOfDash - 1);
+			classLimitCopy = "> " + secondHalf; 
+		}
+		
+		return classLimitCopy;
+	}
+	
+	private void copy(List<NumericalData> destination, 
+			List<NumericalData> source) 
+	{
+		for(NumericalData data : source) {
+			destination.add(data);
+		}
 	}
 }
