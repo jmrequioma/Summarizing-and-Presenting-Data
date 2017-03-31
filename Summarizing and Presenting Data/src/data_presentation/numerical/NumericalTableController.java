@@ -68,6 +68,8 @@ public class NumericalTableController implements Initializable {
 		populateTable(classLimitList, trueClassLimitList, midpointList, frequencyListString, 
 					  percentageListString, cumulativeFrequencyList, cumulativePercentageList);
 		
+		MainFields.setClassLimits(classLimitList);
+		MainFields.setTrueClassLimits(trueClassLimitList);
 		MainFields.setMidpoints(midpointList);
 		MainFields.setFrequencies(frequencyList);
 		MainFields.setPercentages(percentageList);
@@ -414,7 +416,7 @@ public class NumericalTableController implements Initializable {
 				cbCollapseFirst, cbCollapseLast);
 		EventBus eventBus = MainFields.getEventBus();
 		eventBus.register(collapseListener);
-		MainFields.setCollapseListenerFirst(collapseListener);
+		MainFields.setCollapseListener(collapseListener);
 		
 		initCheckBoxListeners(cbCollapseFirst, cbCollapseLast);
 		
@@ -431,7 +433,7 @@ public class NumericalTableController implements Initializable {
 
 			@Override
 			public void recover(ClickEvent e) {
-				System.out.println("Recover");
+				recoverRow(0);
 				
 			}
 		});
@@ -446,7 +448,8 @@ public class NumericalTableController implements Initializable {
 
 			@Override
 			public void recover(ClickEvent e) {
-				// TODO Auto-generated method stub
+				int rowPosition = numericalData.getItems().size() - 2;
+				recoverRow(rowPosition);
 				
 			}
 		});
@@ -465,13 +468,16 @@ public class NumericalTableController implements Initializable {
 	
 	private void openEnd(NumericalData row, int rowPosition) {
 		String classLimit = row.getClassLimit();
+		String trueClassLimit = row.getTrueClassLimit();
 		String midPoint = row.getMidpoint();
 		String position = position(rowPosition);
 
 		classLimit = openEndClassLimit(classLimit, position);
+		trueClassLimit = openEndClassLimit(trueClassLimit, position);
 		midPoint = "-";
 
 		row.setClassLimit(classLimit);
+		row.setTrueClassLimit(trueClassLimit);
 		row.setMidpoint(midPoint);
 	}
 	
@@ -508,5 +514,25 @@ public class NumericalTableController implements Initializable {
 		for(NumericalData data : source) {
 			destination.add(data);
 		}
+	}
+	
+	private void recoverRow(int rowPosition) {
+		ObservableList<NumericalData> numericalDataList = numericalData.getItems();
+		ArrayList<String> classLimitList = MainFields.getClassLimits();
+		ArrayList<String> trueClassLimitList = MainFields.getTrueClassLimits();
+		ArrayList<String> midpointList = MainFields.getMidpoints();
+		NumericalData row = numericalDataList.get(rowPosition);
+		String classLimit = classLimitList.get(rowPosition);
+		String trueClassLimit = trueClassLimitList.get(rowPosition);
+		String midpoint = midpointList.get(rowPosition);
+		row.setClassLimit(classLimit);
+		row.setTrueClassLimit(trueClassLimit);
+		row.setMidpoint(midpoint);
+		
+		
+		ArrayList<NumericalData> copyList = new ArrayList<NumericalData>();
+		copy(copyList, numericalDataList);
+		numericalDataList.removeAll(numericalDataList);
+		copy(numericalDataList, copyList);
 	}
 }

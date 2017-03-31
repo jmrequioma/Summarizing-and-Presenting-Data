@@ -19,6 +19,8 @@ public class MainFields {
 	private static ArrayList<Integer> dataCount;
 	private static ArrayList<Float> dataPercentage;
 	private static ArrayList<Float> sampleDataFloat;
+	private static ArrayList<String> classLimits;
+	private static ArrayList<String> trueClassLimits;
 	private static ArrayList<String> midpoints;
 	private static ArrayList<Integer> frequencies;
 	private static ArrayList<Float> percentages;
@@ -31,11 +33,11 @@ public class MainFields {
 		MainFields.eventBus = eventBus;
 	}
 
-	public static CollapseListener getCollapseListenerFirst() {
+	public static CollapseListener getCollapseListener() {
 		return collapseListener;
 	}
 
-	public static void setCollapseListenerFirst(CollapseListener collapseListener) {
+	public static void setCollapseListener(CollapseListener collapseListener) {
 		MainFields.collapseListener = collapseListener;
 	}
 
@@ -103,6 +105,22 @@ public class MainFields {
 		MainFields.sampleDataFloat = sampleDataFloat;
 	}
 
+	public static ArrayList<String> getClassLimits() {
+		return classLimits;
+	}
+
+	public static void setClassLimits(ArrayList<String> classLimits) {
+		MainFields.classLimits = classLimits;
+	}
+
+	public static ArrayList<String> getTrueClassLimits() {
+		return trueClassLimits;
+	}
+
+	public static void setTrueClassLimits(ArrayList<String> trueClassLimits) {
+		MainFields.trueClassLimits = trueClassLimits;
+	}
+
 	public static ArrayList<String> getMidpoints() {
 		return midpoints;
 	}
@@ -153,6 +171,8 @@ public class MainFields {
 		dataCount.clear();
 		dataPercentage.clear();
 		sampleDataFloat.clear();
+		classLimits.clear();
+		trueClassLimits.clear();
 		midpoints.clear();
 		frequencies.clear();
 		percentages.clear();
