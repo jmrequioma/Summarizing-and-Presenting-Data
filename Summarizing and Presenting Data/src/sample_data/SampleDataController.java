@@ -157,7 +157,7 @@ public class SampleDataController implements Initializable {
 				stage.close();
 			}
 		} else { // type.equals("Numerical")
-			if (sampleDatasFloat.isEmpty()) {
+			if (sampleDatasFloat.isEmpty() || sampleDatasFloat.size() <= 1) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Critical Error");
 				alert.setHeaderText("Invalid Click!!!");
