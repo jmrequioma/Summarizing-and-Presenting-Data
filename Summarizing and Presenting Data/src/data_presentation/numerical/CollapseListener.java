@@ -2,7 +2,6 @@ package data_presentation.numerical;
 
 import com.google.common.eventbus.Subscribe;
 
-import data_presentation.CollapseLastEvent;
 import javafx.scene.control.CheckBox;
 
 public class CollapseListener {

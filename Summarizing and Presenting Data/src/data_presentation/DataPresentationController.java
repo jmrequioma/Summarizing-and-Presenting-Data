@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import com.google.common.eventbus.EventBus;
 
 import data_presentation.numerical.CollapseFirstEvent;
+import data_presentation.numerical.CollapseLastEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

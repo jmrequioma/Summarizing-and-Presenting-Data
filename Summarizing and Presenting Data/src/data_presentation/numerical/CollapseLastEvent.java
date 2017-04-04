@@ -1,4 +1,4 @@
-package data_presentation;
+package data_presentation.numerical;
 
 import javafx.scene.control.CheckBox;
 
